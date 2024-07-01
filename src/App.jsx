@@ -7,6 +7,8 @@ import Header from './components/header/header'
 import CustomInput from './components/CustomInput/CustomInput'
 import InfiniteScroll from './components/InfinityScroll/infinityScroll'
 
+//This is a test
+
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [pokemons, setPokemons] = useState([]);
