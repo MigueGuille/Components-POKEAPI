@@ -1,51 +1,95 @@
-import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect, useCallback } from 'react'
+import CustomModal from './components/modalView/modalView'
+import Header from '@migueguille/component_pokeapi/dist/header/header'
+import CustomInput from '@migueguille/component_pokeapi/dist/customInput/customInput'
+import InfiniteScroll from '@migueguille/component_pokeapi/dist/infinityScroll/infinityScroll'
 import './App.css'
-import ModalView from './components/modalView/modalView'
-import Header from './components/header/header'
-import CustomInput from './components/CustomInput/CustomInput'
-import InfiniteScroll from './components/InfinityScroll/infinityScroll'
+import { loadMorePokemons } from "./services/loadMorePokemons"
+import CardView from './pages/cardView'
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [pokemons, setPokemons] = useState([]);
+  const [foundPokemon, setFoundPokemon] = useState(null);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  console.log(pokemons)
 
-  const handleInputChange = (event) => {
+  // Function to load more pokemons
+  const handleLoadMorePokemons = () => {
+    loadMorePokemons(offset, setPokemons, setOffset, setLoading);
+  };
+
+
+  const fetchPokemons = useCallback(async () => {
+    setLoading(true);
+    try {
+      if (inputValue) {
+        // Fetch a specific pokemon
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
+        const data = await response.json();
+        setFoundPokemon(data); 
+      } else {
+        // Fetch all pokemons
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
+        const data = await response.json();
+        setPokemons(data.results); 
+        setFoundPokemon(null); 
+      }
+    } catch (error) {
+      console.error('Failed to fetch pokemons:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [inputValue]);
+
+  // const handleInputChange = useCallback(debounce((value) => {
+  //   setInputValue(value);
+  //   if (value.trim() !== '') {
+  //     fetchPokemon(value);
+  //     console.log(pokemons)
+  //   } else {
+  //     handleLoadMorePokemons(); 
+  //   }
+  // }, 200), []); 
+
+  const onChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  const fetchPokemons = async () => {
-    setLoading(true);
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`);
-    const data = await response.json();
-    setPokemons(prev => [...prev, ...data.results]);
-    setOffset(prev => prev + 20);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    fetchPokemons();
-  }, []);
+    const handler = setTimeout(() => {
+      fetchPokemons();
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [inputValue, fetchPokemons]);
 
   return (
     <>
-  <Header title="Pokedex">
-    <CustomInput label="Search" value={inputValue} onChange={handleInputChange} />
-  </Header>
-  <div className='body-app'>
-  {pokemons.map((pokemon, index) => (
-  <div key={`${pokemon.url}-${index}`} className='card'>
-    <ModalView handleClick={() => console.log("Se abrió")} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} />
-  </div>
-))}
-  <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />
-    </div>
+      <Header title="Pokedex">
+        <CustomInput label="Search" value={inputValue} onChange={onChange} />
+      </Header>
+      <div className='body-app'>
+        {foundPokemon ? (
+          <div className='card'>
+            <CustomModal handleClick={() => console.log("Se abrió")} title={foundPokemon.name} fetchUrl={foundPokemon.url} imageKey={"front_default"}>
+              <CardView pokemon={foundPokemon} />
+            </CustomModal>
+          </div>
+        ) : (
+          pokemons.map((pokemon) => (
+            <div key={pokemon.name} className='card'>
+              <CustomModal handleClick={() => console.log("Se abrió")} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"}>
+                <CardView pokemon={pokemon} />
+              </CustomModal>
+            </div>
+          ))
+        )}
+        <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
+      </div>
     </>
-  )
+  );
 }
 
+export default App;
 
-export default App
