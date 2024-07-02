@@ -45,7 +45,6 @@ export const Small = {
     size: 'small',
     label: 'Button',
   },
-  
 };
 
 
