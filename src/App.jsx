@@ -6,16 +6,25 @@ import ModalView from './components/modalView/modalView'
 import Header from './components/header/header'
 import CustomInput from './components/CustomInput/CustomInput'
 import InfiniteScroll from './components/InfinityScroll/infinityScroll'
+import StatsModal from './components/descriptions/modalstats'
+
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [pokemons, setPokemons] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [alternA, setComponentA] = useState(true)
+  const [activePokemon, setActivePokemon] = useState(null);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
+
+  const alternComp = () =>{
+setComponentA(!alternA)
+
+  }
 
   const fetchPokemons = async () => {
     setLoading(true);
@@ -30,6 +39,7 @@ function App() {
     fetchPokemons();
   }, []);
 
+ 
   return (
     <>
   <Header title="Pokedex">
@@ -38,7 +48,9 @@ function App() {
   <div className='body-app'>
   {pokemons.map((pokemon, index) => (
   <div key={`${pokemon.url}-${index}`} className='card'>
-    <ModalView handleClick={() => console.log("Se abrió")} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} />
+    {/* <button onClick={alternComp}></button> */}
+   {alternA ? <ModalView onClick={alternComp} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} /> :
+    <StatsModal onClick={alternComp} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} fetchUrl={pokemon.url} pokeType= {"name"}/>}
   </div>
 ))}
   <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />

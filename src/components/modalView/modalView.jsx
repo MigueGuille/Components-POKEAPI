@@ -3,14 +3,14 @@ import './modalView.css';
 import CustomButton from '../customButton/customButton';
 import useFetchPokemonDetails from '../../services/pokeDetails';
 
-const CustomModal = ({handleClick, title, fetchUrl, imageKey}) => {
+const CustomModal = ({handleClick, title, fetchUrl, imageKey, onClick}) => {
 
   const pokemonDetails = useFetchPokemonDetails(fetchUrl);
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
 
 
     return (
-        <div className="modal">
+        <div className="modal" onClick={onClick}>
             <div className="modal-content">
                 <div className="modal-header">
                     <h4>{title.toUpperCase()}</h4>
