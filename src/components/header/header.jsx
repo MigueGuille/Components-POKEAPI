@@ -1,5 +1,5 @@
 import React from 'react';
-import './header.css';
+import './Header.css';
 import pokelogo from '../../assets/pokelogo.png'
 
 const Header = ({ title, children, style }) => {

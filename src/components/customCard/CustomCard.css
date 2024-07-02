@@ -1,71 +1,79 @@
-.modal {
+.customCard {
     top: 0;
     left: 0;
-    
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
     background-color: #fff;
     width: 200px;
-    height: 210px;
+    height: 200px;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
-    
+    padding: 5px;
 }
 
-.modal:hover{
+.customCard:hover{
     box-shadow: 2px 2px 5px 2px #ccc;
-    /*padding: 10px;*/
     animation: bounce-in 1s ease alternate;
+    cursor: pointer;
 }
 
 @keyframes bounce-in {
     50% { transform: scale(.9); }
 }
 
-.modal-content {
+.customCard-content {
     background-color: #fff;
     border-radius: 15px;
-    /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
     max-width: 90%;
     max-height: 90%;
 }
 
-.modal-header {
+.customCard-header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
-.modal-header h4 {
+.customCard-header p {
     margin: 0;
-    margin-top: -20px;
-    color: black;
+    color: white;
+    background-color: #242424;
+    font-weight: 900;
+    font-size: 12px;
+    padding: 3px 9px;
+    margin: 0 5px; 
+    border-radius: 10px;
+    margin-top: -16px;
 }
 
-.modal-body {
+
+.customCard-header h4 {
+    margin: 0;
+    color: black;
+    margin-top: -15px;
+    margin-right: 6px;
+}
+
+.customCard-body {
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center; 
+    margin-top: -15px;
   }
   
-  .modal-image {
+  .customCard-image {
     max-width: 100%; 
     max-height: 400px;
     height: 200px;
     width: 200px;
-    border-radius: 10px;
-  }
-
-  .modal-body img{
     margin-top: -10px;
   }
 
 
-.modal-header button {
+.customCard-header button {
     cursor: pointer;
     border: 1px solid #000;
     font-size: 1.5rem;

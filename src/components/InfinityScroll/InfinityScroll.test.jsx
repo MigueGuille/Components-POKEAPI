@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
-import InfinityScroll from './infinityScroll';
+import InfinityScroll from 'infinityScroll/InfinityScroll'
 
 describe('InfiniteScroll', () => {
     it('calls fetchMoreData on scroll to bottom', () => {

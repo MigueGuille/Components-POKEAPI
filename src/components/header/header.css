@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    margin: 0;
     background-color:rgb(216, 0, 0);
     /*border-bottom: 1px solid #ccc;*/
     position: fixed;
@@ -20,7 +21,7 @@
 }
 
 .logo{
-    margin: 15px;
+    margin: 5px;
     padding: 0;
     margin-left: 3%;
     width: 10%;

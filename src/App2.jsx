@@ -5,27 +5,21 @@ import Header from './components/header/Header'
 import CustomInput from './components/customInput/CustomInput.jsx'
 import InfiniteScroll from './components/infinityScroll/InfinityScroll'
 import CustomDropdown from './components/customDropdown/CustomDropdown.jsx'
+import Loading from './components/loading/Loading.jsx'
 
-//This is a test
 
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [pokemons, setPokemons] = useState([]);
+  const [clientPokemons, setClientPokemons] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState(null)
+  const [pokemonsContent, setPokemonsContent] = useState(null)
+  const [dataPokemons, setDataPokemons] = useState([]);
+  const [lastPokemon, setLastPokemon] = useState(null);
+  const [content, setContent] = useState(Loading);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
-  };
-
-  const fetchPokemons = async () => {
-    setLoading(true);
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`);
-    const data = await response.json();
-    setPokemons(prev => [...prev, ...data.results]);
-    setOffset(prev => prev + 20);
-    setLoading(false);
   };
 
   const fetchFilterPokemons = async ()=>{
@@ -33,11 +27,38 @@ function App() {
       setLoading(true);
       const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=2000');
       const data = await response.json();
-      
+      setDataPokemons(data.results.sort( (a, b)=> {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      }))
+      setLoading(false);
       
     }else
       fetchPokemons();
   }
+
+  const fetchPokemons = async () => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`);
+    const data = await response.json();
+    setDataPokemons(data)
+  };
+
+  const sendPokemons = async (data) => {
+    setLoading(true);
+    setClientPokemons(prev => [...prev, ...data.results]);
+    setOffset(prev => prev + 20);
+    setLoading(false);
+  }
+
+  useEffect(()=>{
+    setClientPokemons(dataPokemons)
+  },[dataPokemons])
 
   function getPokemonNumber(url){  
     const urlSplitted = url.split('/');
@@ -56,15 +77,34 @@ function App() {
   },[inputValue])
 
   useEffect(()=>{
-    setContent(
-      pokemons.map((pokemon, index) => (
+    setPokemonsContent(
+      clientPokemons.map((pokemon, index) => (
         <div key={`${pokemon.url}-${index}`} className='card'>
           <CustomCard handleClick={() => console.log('Clicked') } title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
             number={ ()=> getPokemonNumber(pokemon.url) } />
         </div>
       ))
     )
-  },[pokemons])
+  },[clientPokemons])
+
+  useEffect(()=>{
+    setContent(
+      <>
+        <div className='dropdown-app'>
+          <CustomDropdown placeholder="Order by"/>
+        </div>
+        <div className='content-app'>
+          { content }
+          <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />
+        </div>
+      </>
+    )
+  },[pokemonsContent])
+  
+  useEffect(()=>{
+    
+  },[content])
+  
 
   return (
     <>
@@ -72,13 +112,7 @@ function App() {
         <CustomInput placeholder='Search' value={inputValue} onChange={handleInputChange} />
       </Header>
       <div className='body-app'>
-        <div className='dropdown-app'>
-          <CustomDropdown placeholder="Select the option"/>
-        </div>
-        <div className='content-app'>
-          { content }
-          <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />
-        </div>
+        { content }
       </div>
     </>
   )

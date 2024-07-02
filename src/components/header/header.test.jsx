@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest';
 import { getByDisplayValue, render } from '@testing-library/react';
-import Header from './header';
+import Header from './Header';
 
 describe('Header', () => {
     it('render the header with title', () => {
