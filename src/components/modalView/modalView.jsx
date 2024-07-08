@@ -24,3 +24,4 @@ const CustomModal = ({children, title, fetchUrl, imageKey}) => {
 };
 
 export default CustomModal;
+

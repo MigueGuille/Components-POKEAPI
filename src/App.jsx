@@ -1,11 +1,14 @@
-import { useState, useEffect, useCallback } from 'react'
-import CustomModal from './components/modalView/modalView'
-import Header from '@migueguille/component_pokeapi/dist/header/header'
-import CustomInput from '@migueguille/component_pokeapi/dist/customInput/customInput'
-import InfiniteScroll from '@migueguille/component_pokeapi/dist/infinityScroll/infinityScroll'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { loadMorePokemons } from "./services/loadMorePokemons"
 import CardView from './pages/cardView'
+import CustomCard from './components/customCard/CustomCard.jsx'
+import Header from './components/header/Header'
+import CustomInput from './components/customInput/CustomInput.jsx'
+import InfiniteScroll from './components/infinityScroll/InfinityScroll'
+import CustomDropdown from './components/customDropdown/CustomDropdown.jsx'
+
+//This is a test
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -14,6 +17,7 @@ function App() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   console.log(pokemons)
+  const [content, setContent] = useState(null)
 
   // Function to load more pokemons
   const handleLoadMorePokemons = () => {
@@ -68,25 +72,16 @@ function App() {
   return (
     <>
       <Header title="Pokedex">
-        <CustomInput label="Search" value={inputValue} onChange={onChange} />
+        <CustomInput placeholder='Search' value={inputValue} onChange={handleInputChange} />
       </Header>
       <div className='body-app'>
-        {foundPokemon ? (
-          <div className='card'>
-            <CustomModal handleClick={() => console.log("Se abrió")} title={foundPokemon.name} fetchUrl={foundPokemon.url} imageKey={"front_default"}>
-              <CardView pokemon={foundPokemon} />
-            </CustomModal>
-          </div>
-        ) : (
-          pokemons.map((pokemon) => (
-            <div key={pokemon.name} className='card'>
-              <CustomModal handleClick={() => console.log("Se abrió")} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"}>
-                <CardView pokemon={pokemon} />
-              </CustomModal>
-            </div>
-          ))
-        )}
-        <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
+        <div className='dropdown-app'>
+          <CustomDropdown placeholder="Select the option"/>
+        </div>
+        <div className='content-app'>
+          { content }
+          <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />
+        </div>
       </div>
     </>
   );

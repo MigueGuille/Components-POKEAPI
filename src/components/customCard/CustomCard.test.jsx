@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from 'vitest';
-import ModalView from './modalView';
+import Card from './CustomCard';
 import { render, fireEvent } from '@testing-library/react';
 
 describe('ModalView', () => {
@@ -8,7 +8,7 @@ describe('ModalView', () => {
     // })
 
     it('ModalView render', () => {
-      const { getByText } = render(<ModalView handleClick={() => console.log("Se abrió")} title={"BULBASAUR"} fetchUrl={"https://pokeapi.co/api/v2/pokemon/1/"} imageKey={"front_default"}/>);
+      const { getByText } = render(<Card handleClick={() => console.log("Se abrió")} title={"BULBASAUR"} fetchUrl={"https://pokeapi.co/api/v2/pokemon/1/"} imageKey={"front_default"}/>);
       expect(getByText('BULBASAUR')).toBeDefined();
 
       const consoleSpy = vi.spyOn(console, 'log');

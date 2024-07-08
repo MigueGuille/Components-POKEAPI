@@ -1,0 +1,51 @@
+.select{
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(216, 0, 0);
+  align-items: center;
+  padding: 10px;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 150px;
+  justify-content: space-around;
+}
+
+.select:hover{
+  background-color: rgb(173, 0, 0);
+}
+
+.select label{
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffc7c7;
+  cursor: pointer;
+}
+
+.select button{
+  background-color: inherit;
+  border-radius: inherit;
+  border: none;
+  padding: 0;
+}
+
+/*@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}*/
+
+.options{
+  /*animation: fade-in 2s linear ;*/
+  background-color: rgb(255, 41, 41);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  font-weight: 50;
+  font-size: 14px;
+  color: #ffc7c7;
+}
+
+.option:hover{
+  background-color: rgb(173, 0, 0);
+  cursor: pointer;
+}
+
