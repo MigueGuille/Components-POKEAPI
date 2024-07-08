@@ -28,6 +28,7 @@ function App() {
         // Fetch a specific pokemon
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
         const data = await response.json();
+        console.log(data)
         setFoundPokemon(data); 
       } else {
         // Fetch all pokemons
