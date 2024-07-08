@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import { loadMorePokemons } from "./services/loadMorePokemons"
 import CardView from './pages/cardView'
 import CustomCard from './components/customCard/CustomCard.jsx'
-import Header from './components/header/Header'
-import CustomInput from './components/customInput/CustomInput.jsx'
-import InfiniteScroll from './components/infinityScroll/InfinityScroll'
-import CustomDropdown from './components/customDropdown/CustomDropdown.jsx'
+import Header from './components/header/header'
+import CustomInput from './components/CustomInput/CustomInput.jsx'
+import InfiniteScroll from './components/InfinityScroll/infinityScroll.jsx'
+import CustomDropdown from './components/customDropdown/CustomDropdown'
 
 //This is a test
 
@@ -14,7 +14,7 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [pokemons, setPokemons] = useState([]);
   const [foundPokemon, setFoundPokemon] = useState(null);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(20);
   const [loading, setLoading] = useState(false);
   console.log(pokemons)
   const [content, setContent] = useState(null)
@@ -62,6 +62,18 @@ function App() {
     setInputValue(event.target.value);
   };
 
+  function getPokemonNumber(url){  
+    const urlSplitted = url.split('/');
+    urlSplitted.pop();
+    const digitsNumber = (urlSplitted[urlSplitted.length-1] + '').split('')
+    let newDigitsNumber = digitsNumber;
+    for(let d=digitsNumber.length; d<4; d++){
+      newDigitsNumber= ['0'].concat(newDigitsNumber)
+    }
+    
+    return newDigitsNumber.join('')
+  }
+
   useEffect(() => {
     const handler = setTimeout(() => {
       fetchPokemons();
@@ -69,18 +81,29 @@ function App() {
     return () => clearTimeout(handler);
   }, [inputValue, fetchPokemons]);
 
+  useEffect(() => {
+    setContent(
+      pokemons.map((pokemon, index) => (
+        <div key={`${pokemon.url}-${index}`} className='card'>
+          <CustomCard handleClick={() => console.log('Clicked') } title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
+            number={ ()=> getPokemonNumber(pokemon.url) } />
+        </div>
+      ))
+    )
+  },[pokemons])
+
   return (
     <>
       <Header title="Pokedex">
-        <CustomInput placeholder='Search' value={inputValue} onChange={handleInputChange} />
+        <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
       </Header>
       <div className='body-app'>
         <div className='dropdown-app'>
           <CustomDropdown placeholder="Select the option"/>
         </div>
         <div className='content-app'>
-          { content }
-          <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />
+          {content}
+          <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
         </div>
       </div>
     </>
