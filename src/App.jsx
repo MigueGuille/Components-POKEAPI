@@ -7,8 +7,25 @@ import CustomInput from './components/customInput/CustomInput.jsx'
 import InfiniteScroll from './components/infinityScroll/InfinityScroll'
 import CustomDropdown from './components/customDropdown/CustomDropdown.jsx'
 import TopScroll from './components/topScroll/TopScroll.jsx'
-
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+/*
+export const router = createBrowserRouter(routes)
+<>
+      {
+        createRoot(document.getElementById("root")).render(
+          <RouterProvider router={router} />
+        )
+      }
+    </>
+*/
 function App() {
+  
   const [inputValue, setInputValue] = useState('');
   const [pokemons, setPokemons] = useState([]);
   const [foundPokemon, setFoundPokemon] = useState(null);
@@ -53,7 +70,7 @@ function App() {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
         const data = await response.json();
         console.log(data)
-        setFoundPokemon(data); 
+        setFoundPokemon(data);
       } else {
         // Fetch all pokemons
         const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
@@ -78,10 +95,6 @@ function App() {
   //   }
   // }, 200), []); 
 
-  const onChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
   useEffect(() => {
     const handler = setTimeout(() => {
       fetchPokemons();
@@ -92,7 +105,7 @@ function App() {
   return (
     <>
       <Header title="Pokedex">
-        <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
+        <CustomInput />
       </Header>
       <TopScroll />
       <div className='body-app'>
