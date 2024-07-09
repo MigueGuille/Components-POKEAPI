@@ -1,17 +1,18 @@
 .select{
   display: flex;
   flex-direction: row;
-  background-color: rgb(216, 0, 0);
   align-items: center;
-  padding: 10px;
+  border-radius: inherit;
+  justify-content: space-around;
+  width: 150px;
   border-radius: 20px;
   padding: 5px 10px;
-  width: 150px;
-  justify-content: space-around;
+  background-color: rgb(216, 0, 0);
 }
 
 .select:hover{
   background-color: rgb(173, 0, 0);
+  
 }
 
 .select label{
@@ -23,7 +24,6 @@
 
 .select button{
   background-color: inherit;
-  border-radius: inherit;
   border: none;
   padding: 0;
 }
@@ -38,14 +38,18 @@
   background-color: rgb(255, 41, 41);
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: inherit;
   font-weight: 50;
   font-size: 14px;
   color: #ffc7c7;
+  position: absolute;
+  width: 160px;
+  border-radius: 10px;
 }
 
 .option:hover{
   background-color: rgb(173, 0, 0);
   cursor: pointer;
+  border-radius: inherit;
 }
 

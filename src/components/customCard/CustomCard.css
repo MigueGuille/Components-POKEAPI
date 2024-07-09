@@ -29,31 +29,38 @@
     max-height: 90%;
 }
 
-.customCard-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.customCard-id {
+    width: min-content;
 }
 
-.customCard-header p {
+.customCard-id p {
+    position: relative;
     margin: 0;
     color: white;
     background-color: #242424;
     font-weight: 900;
     font-size: 12px;
     padding: 3px 9px;
-    margin: 0 5px; 
     border-radius: 10px;
-    margin-top: -16px;
 }
 
 
-.customCard-header h4 {
+.customCard-name .name h4 {
     margin: 0;
     color: black;
-    margin-top: -15px;
-    margin-right: 6px;
+    font-size: 16px;
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    margin-top: -30px;
+    height: min-content;
+    padding: 5px;
+}
+
+.customCard-name{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: end;
 }
 
 .customCard-body {
@@ -69,13 +76,5 @@
     max-height: 400px;
     height: 200px;
     width: 200px;
-    margin-top: -10px;
+    margin-top: -25px;
   }
-
-
-.customCard-header button {
-    cursor: pointer;
-    border: 1px solid #000;
-    font-size: 1.5rem;
-
-}

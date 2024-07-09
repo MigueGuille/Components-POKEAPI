@@ -13,7 +13,7 @@ export default function Details(){
 //  const pokemonDetails = usePokeId(id);
   console.log(id)
 
-  const [isReady, setIsReady] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [pokeData, setPokeData] = useState(null);
 
   const [pokeName, setPokeName] = useState(null);
@@ -67,7 +67,7 @@ export default function Details(){
       setPokeCategory(genus);
 
       setPokeWeight(pokeData.weight);
-      setIsReady(true);
+      setIsLoaded(true);
       
       
       //console.log(dataUrl.flavor_text_entries.map((entrie)=>entrie.version.name))
@@ -85,7 +85,7 @@ export default function Details(){
       </Header>
 
       <div className='body-app-d'>
-        { isReady ? 
+        { isLoaded ? 
         <>
           <div className='content-app-d'>
             <div className='id'>

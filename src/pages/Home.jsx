@@ -7,6 +7,7 @@ import InfiniteScroll from '../components/infinityScroll/InfinityScroll.jsx'
 import CustomDropdown from '../components/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
+import TopScroll from '../components/topScroll/TopScroll.jsx'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
@@ -100,6 +101,7 @@ const Home = () => {
         <Header title="Pokedex">
           <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
         </Header>
+        <TopScroll />
         <div className='body-app'>
           <div className='dropdown-app'>
             <CustomDropdown placeholder="Select the option"/>

@@ -16,12 +16,16 @@ const CustomCard = ({ number, title, fetchUrl, imageKey}) => {
   return (
     <div className="customCard">
       <div className="customCard-content">
+        <div className="customCard-id">
+          <p>{ number() }</p>
+        </div>
         <div className="customCard-body" onClick={handleClick}>
           <img src={imageUrl} alt={title} className='customCard-image'/>
         </div>
-        <div className="customCard-header">
-          <p>{ number() }</p>
-          <h4>{title.toUpperCase()}</h4>
+        <div className='customCard-name'>
+          <div className='name'>
+            <h4>{title.toUpperCase()}</h4>
+          </div>
         </div>
       </div>
     </div>

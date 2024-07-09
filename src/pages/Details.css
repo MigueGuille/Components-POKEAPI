@@ -12,6 +12,7 @@
   justify-content: space-evenly;
   width: 70%;
   text-transform: capitalize;
+  margin-top: 50px;
 }
 
 .content-app-d{
@@ -28,9 +29,7 @@
 }
 
 .image img{
-  width: 600px;
-  margin-top: -150px;
-  margin-left: -100px;
+  width: 500px;
 }
 
 .specs{

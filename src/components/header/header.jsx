@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = ({ title, children, style }) => {
   const navigate = useNavigate();
+  
   function handleClick(){
-    console.log('clickedd')
     navigate('/');
   }
 
