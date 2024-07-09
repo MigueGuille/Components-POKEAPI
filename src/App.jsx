@@ -3,6 +3,7 @@ import './App.css'
 import Home from './pages/Home'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import Details from './pages/Details'
+import Page from './pages/Page/Page'
 
 //This is a test
 

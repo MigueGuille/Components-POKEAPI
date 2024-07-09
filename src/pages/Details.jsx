@@ -4,8 +4,14 @@ import Header from '../components/header/Header'
 import { setUISelection } from '@testing-library/user-event/dist/cjs/document/UI.js';
 import Loading from '../components/loading/Loading';
 import './Details.css'
+import usePokeId from "../services/UsePokeId";
+import { useParams } from "react-router-dom";
 
 export default function Details(){
+
+  const { id } = useParams();
+//  const pokemonDetails = usePokeId(id);
+  console.log(id)
 
   const [isReady, setIsReady] = useState(false)
   const [pokeData, setPokeData] = useState(null);
@@ -34,7 +40,7 @@ export default function Details(){
 
   
   async function fecthPokeData(){
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/8')
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
     setPokeData(data)
   }
@@ -46,7 +52,7 @@ export default function Details(){
   async function setPokeDataa(){
     if(pokeData!==null){
       setPokeName(pokeData.name);
-      setPokeId(pokeData.id);
+      setPokeId(id);
       setPokeTypes(pokeData.types.map((t)=>t.type.name));
       setPokeHeight(pokeData.height);
       setPokeFrontDef(pokeData.sprites.front_default);
@@ -108,7 +114,7 @@ export default function Details(){
                     )
                   }
                 </div>
-                <div>
+                <div className='category'>
                   <h3>Category</h3>
                   { 
                  pokeCategory.map((ctgy, index)=>

@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react'
-import './Home.css'
 import { loadMorePokemons } from '../services/LoadMorePokemons.jsx'
 import CustomCard from '../components/customCard/CustomCard.jsx'
 import Header from '../components/header/Header.jsx'
@@ -7,6 +6,7 @@ import CustomInput from '../components/customInput/CustomInput.jsx'
 import InfiniteScroll from '../components/infinityScroll/InfinityScroll.jsx'
 import CustomDropdown from '../components/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
+import './Home.css'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');

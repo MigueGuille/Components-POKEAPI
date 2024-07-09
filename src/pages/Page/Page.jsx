@@ -5,7 +5,7 @@ import usePokeId from "../../services/UsePokeId";
 const Page = () => {
     const { id } = useParams();
     const pokemonDetails = usePokeId(id);
-    console.log(pokemonDetails);
+    console.log(id);
 
     if (!pokemonDetails) {
         return <div>Loading...</div>;
@@ -20,4 +20,4 @@ const Page = () => {
     );
 }
 
-export default Page;    
+export default Page;
