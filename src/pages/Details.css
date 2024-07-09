@@ -1,8 +1,8 @@
-p, h3{
+.body-app-d p,.body-app-d h3{
   color: black;
 }
 
-.body-app{
+.body-app-d{
   margin-left: -0px;
 }
 
@@ -14,7 +14,7 @@ p, h3{
   text-transform: capitalize;
 }
 
-.content-app{
+.content-app-d{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,16 +61,16 @@ p, h3{
 
 
 
-svg{
+.body-app-d svg{
   border-radius: 100%;
   background-color: gray;
 }
 
-svg:hover{
+.body-app-d svg:hover{
   opacity: 40%;
 }
 
-path{
+.body-app-d path{
   fill: black;
 }
 

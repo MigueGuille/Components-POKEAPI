@@ -84,10 +84,10 @@ export default function Details(){
           <CustomInput />
       </Header>
 
-      <div className='body-app'>
+      <div className='body-app-d'>
         { isReady ? 
         <>
-          <div className='content-app'>
+          <div className='content-app-d'>
             <div className='id'>
               <h2> {pokeName} </h2>
               <h2> {pokeId} </h2>
