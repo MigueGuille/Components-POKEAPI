@@ -3,16 +3,25 @@ import React, {useEffect, useState} from 'react';
 import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
 // import pokeDetails from '../hooks/pokeDetails';
+import modalStats from '../descriptions/modalstats';
+import StatsModal from '../descriptions/modalstats';
 
 const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunction}) => {
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const pokemonDetails = fetchfunction(fetchUrl);
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
   // const handleClick = () => {
   //   console.log(pokemonDetails);
   // }
+  const handleMouseEnter = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsModalVisible(false);
+  };
   return (
-    <div className="customCard">
+    <div className="customCard"onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="customCard-content">
         <div className="customCard-body" onClick={handleClick}>
         {pokemonDetails ? (
@@ -26,6 +35,9 @@ const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunct
           <h4>{title.toUpperCase()}</h4>
         </div>
       </div>
+      {isModalVisible && pokemonDetails && (
+        <StatsModal pokemonDetails={pokemonDetails} handleClick={handleClick}/>
+      )}
     </div>
   );
 };

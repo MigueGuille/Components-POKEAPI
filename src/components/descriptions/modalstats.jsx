@@ -1,30 +1,35 @@
 import "./modalstats.css"
-import useFetchPokemonDetails from "../../services/pokeDetails"
+import useFetchPokemonDetails from "../../services/hooks/pokeDetails"
 
-const StatsModal = ({description, pokename, image, pokeType, fetchUrl, onClick}) =>{
-const pokemonDetails = useFetchPokemonDetails(fetchUrl)
-const imageUrl = pokemonDetails ? pokemonDetails.sprites.versions['generation-vii']['icons'][image] : '';
-const typin = pokemonDetails ? pokemonDetails.types.map(type=>type.type[pokeType]): [];
-// const typeUrl = `https://pokeapi.co/api/v2/type/${typin}/`;
-// const typeI = typeUrl
-const flavor = pokemonDetails ? pokemonDetails.flavor_text_entries[description] : '';
-const typesString = typin.join(' ');
+const StatsModal = ({pokemonDetails, handleClick}) =>{
 
 return(
-<div className="statsmodal" onClick={onClick}>
-    <div className="stats-content">
-        <div className="object-content">
-        <div className="tittle"><h3>{pokename}</h3></div>
-            <div className="image-content">
-                <div className="sprite">
-                    <img src={imageUrl} alt={pokename} />
-                </div>
-                <div className="poke-type">{typesString}</div>
-            </div>
-        </div>
-            <div className="description"><h6>{flavor}Aqui va la descripcion del pokemon, Stats, evoluciones puede ser, entre otras cosas</h6></div>
+<div className="customCard-modal" onClick={handleClick}>
+      <h3>{pokemonDetails.name}</h3>
+      <p>Height: {pokemonDetails.height}</p>
+      <p>Weight: {pokemonDetails.weight}</p>
+      <p>Base Experience: {pokemonDetails.base_experience}</p>
+      <h4>Abilities:</h4>
+      <ul>
+        {pokemonDetails.abilities.map((ability, index) => (
+          <li key={index}>{ability.ability.name}</li>
+        ))}
+      </ul>
+      <h4>Types:</h4>
+      <ul>
+        {pokemonDetails.types.map((type, index) => (
+          <li key={index}>{type.type.name}</li>
+        ))}
+      </ul>
+      <h4>Base Stats:</h4>
+      <ul>
+        {pokemonDetails.stats.map((stat, index) => (
+          <li key={index}>
+            {stat.stat.name}: {stat.base_stat}
+          </li>
+        ))}
+      </ul>
     </div>
-</div>
 )
 }
 

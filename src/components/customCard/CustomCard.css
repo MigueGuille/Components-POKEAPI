@@ -14,7 +14,8 @@
 
 .customCard:hover{
     box-shadow: 2px 2px 5px 2px #ccc;
-    animation: bounce-in 1s ease alternate;
+    /* animation: bounce-in 5s ease alternate; */
+    transform: scale(.9);
     cursor: pointer;
 }
 
@@ -78,4 +79,20 @@
     border: 1px solid #000;
     font-size: 1.5rem;
 
+}
+
+.customCard-modal {
+    position: absolute;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 20px; /* Increased padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px; /* Increased width */
+    height: auto; /* Adjust height as needed */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); 
+    /* Adjust positioning as needed */
 }
