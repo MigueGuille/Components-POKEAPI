@@ -22,10 +22,6 @@ function App() {
     setInputValue(event.target.value);
   };
 
-  const alternComp = () =>{
-setComponentA(!alternA)
-
-  }
 
   const fetchPokemons = async () => {
     setLoading(true);
@@ -35,6 +31,8 @@ setComponentA(!alternA)
     setOffset(prev => prev + 20);
     setLoading(false);
   };
+
+
 
   useEffect(() => {
     fetchPokemons();
@@ -49,10 +47,7 @@ setComponentA(!alternA)
   <div className='body-app'>
   {pokemons.map((pokemon, index) => (
   <div key={`${pokemon.url}-${index}`} className='card'>
-    {/* <button onClick={alternComp}></button> */}
-   {/* {alternA ? <ModalView onClick={alternComp} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} /> :
-    <StatsModal onClick={alternComp} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} fetchUrl={pokemon.url} pokeType= {"name"}/>} */}
-<Change title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} pokeType= {"name"}/>
+<Change title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} description = {"flavor_text"} pokename = {pokemon.name} image= {"front_default"} pokeType= {"name"}/>
   </div>
 ))}
   <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />

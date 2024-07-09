@@ -7,6 +7,7 @@ const imageUrl = pokemonDetails ? pokemonDetails.sprites.versions['generation-vi
 const typin = pokemonDetails ? pokemonDetails.types.map(type=>type.type[pokeType]): [];
 // const typeUrl = `https://pokeapi.co/api/v2/type/${typin}/`;
 // const typeI = typeUrl
+const flavor = pokemonDetails ? pokemonDetails.flavor_text_entries[description] : '';
 const typesString = typin.join(' ');
 
 return(
@@ -21,7 +22,7 @@ return(
                 <div className="poke-type">{typesString}</div>
             </div>
         </div>
-            <div className="description"><h6>{description}Aqui va la descripcion del pokemon, Stats, evoluciones puede ser, entre otras cosas</h6></div>
+            <div className="description"><h6>{flavor}Aqui va la descripcion del pokemon, Stats, evoluciones puede ser, entre otras cosas</h6></div>
     </div>
 </div>
 )
