@@ -4,23 +4,18 @@ import Header from '../components/header/Header'
 import { setUISelection } from '@testing-library/user-event/dist/cjs/document/UI.js';
 import Loading from '../components/loading/Loading';
 import './Details.css'
-import usePokeId from "../services/UsePokeId";
+import { usePokeId } from '../services/index';
 import { useParams } from "react-router-dom";
+// import { pokeDetails } from '@migueguille/components';
 
 export default function Details(){
 
   const { id } = useParams();
-//  const pokemonDetails = usePokeId(id);
+ const pokemonDetails = usePokeId(id)
   console.log(id)
 
   const [isReady, setIsReady] = useState(false)
   const [pokeData, setPokeData] = useState(null);
-
-  const [pokeName, setPokeName] = useState(null);
-  const [pokeId, setPokeId] = useState(null);
-  const [pokeTypes, setPokeTypes] = useState(null);
-  const [pokeHeight, setPokeHeight] = useState(null);
-  const [pokeFrontDef, setPokeFrontDef] = useState(null);
   const [pokeEntries, setPokeEntries] = useState(null);
   const [pokeCategory, setPokeCategory] = useState(null);
   const [pokeWeight, setPokeWeight] = useState(null);
@@ -50,14 +45,9 @@ export default function Details(){
   },[pokeData])
 
   async function setPokeDataa(){
-    if(pokeData!==null){
-      setPokeName(pokeData.name);
-      setPokeId(id);
-      setPokeTypes(pokeData.types.map((t)=>t.type.name));
-      setPokeHeight(pokeData.height);
-      setPokeFrontDef(pokeData.sprites.front_default);
+    if(pokemonDetails!==null){
       
-      const resUrl = await fetch(pokeData.species.url)
+      const resUrl = await fetch(pokemonDetails.species.url)
       const dataUrl = await resUrl.json();
 
       const enEntries = dataUrl.flavor_text_entries.filter((entrie)=> entrie.language.name==='en')
@@ -65,8 +55,6 @@ export default function Details(){
       
       const genus = dataUrl.genera.filter(gen=> gen.language.name=='en')
       setPokeCategory(genus);
-
-      setPokeWeight(pokeData.weight);
       setIsReady(true);
       
       
@@ -81,7 +69,7 @@ export default function Details(){
   return(
     <>
       <Header title="Pokedex">
-          <CustomInput />
+          {/* <CustomInput /> */}
       </Header>
 
       <div className='body-app'>
@@ -89,13 +77,13 @@ export default function Details(){
         <>
           <div className='content-app'>
             <div className='id'>
-              <h2> {pokeName} </h2>
-              <h2> {pokeId} </h2>
+              <h2> {pokemonDetails.name} </h2>
+              <h2> {pokemonDetails.id} </h2>
             </div>
 
             <div className='details'>
               <div className='image'>
-                <img src={pokeFrontDef} />
+                <img src={pokemonDetails.sprites.front_default} />
               </div>
 
               <div className='specs'>
