@@ -23,12 +23,17 @@
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    /* margin-top: 20px; */
     margin-right: 100px;
 }
 
 .lens{
+    background-color: inherit;
     margin: 10px;
+    margin-right: 5px;
+}
+
+.lens path{
+    fill: #eee;
 }
 
 .lens:hover{
