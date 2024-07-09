@@ -25,13 +25,13 @@
   align-items: end;
 }
 
-.content-app {
-  max-width: 1280px;
-  margin: 0 auto;
-  margin-top: 50px;
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  .content-app {
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
