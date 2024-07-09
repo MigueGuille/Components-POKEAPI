@@ -15,7 +15,11 @@ const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunct
     <div className="customCard">
       <div className="customCard-content">
         <div className="customCard-body" onClick={handleClick}>
-          <img src={imageUrl} alt={title} className='customCard-image'/>
+        {pokemonDetails ? (
+            <img src={imageUrl} alt={title} className='customCard-image'/>
+          ) : (
+            <img src={imageKey} alt={title} className='customCard-image'/>
+          )}
         </div>
         <div className="customCard-header">
           <p>{ number() }</p>

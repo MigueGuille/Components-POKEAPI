@@ -9,8 +9,7 @@ import CustomInput from '@migueguille/components/dist/customInput/CustomInput'
 import InfiniteScroll from '@migueguille/components/dist/infinityScroll/InfinityScroll'
 import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
-import { pokeDetails } from '../services/index.js'
-
+import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon } from '../services/index.js'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
@@ -18,7 +17,6 @@ const Home = () => {
     const [foundPokemon, setFoundPokemon] = useState(null);
     const [offset, setOffset] = useState(20);
     const [loading, setLoading] = useState(false);
-    console.log(pokemons)
     const [content, setContent] = useState(null)
     const navigate = useNavigate();
   
@@ -27,62 +25,16 @@ const Home = () => {
       loadMorePokemons(offset, setPokemons, setOffset, setLoading);
     };
   
-  
-    const fetchPokemons = useCallback(async () => {
-      setLoading(true);
-      try {
-        if (inputValue) {
-          // Fetch a specific pokemon
-          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
-          const data = await response.json();
-          console.log(data)
-          setFoundPokemon(data); 
-        } else {
-          // Fetch all pokemons
-          const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
-          const data = await response.json();
-          setPokemons(data.results); 
-          setFoundPokemon(null); 
-        }
-      } catch (error) {
-        console.error('Failed to fetch pokemons:', error);
-      } finally {
-        setLoading(false);
-      }
-    }, [inputValue]);
-  
-    // const handleInputChange = useCallback(debounce((value) => {
-    //   setInputValue(value);
-    //   if (value.trim() !== '') {
-    //     fetchPokemon(value);
-    //     console.log(pokemons)
-    //   } else {
-    //     handleLoadMorePokemons(); 
-    //   }
-    // }, 200), []); 
-  
     const onChange = (event) => {
       setInputValue(event.target.value);
     };
   
-    function getPokemonNumber(url){  
-      const urlSplitted = url.split('/');
-      urlSplitted.pop();
-      const digitsNumber = (urlSplitted[urlSplitted.length-1] + '').split('')
-      let newDigitsNumber = digitsNumber;
-      for(let d=digitsNumber.length; d<4; d++){
-        newDigitsNumber= ['0'].concat(newDigitsNumber)
-      }
-      
-      return newDigitsNumber.join('')
-    }
-  
     useEffect(() => {
       const handler = setTimeout(() => {
-        fetchPokemons();
+        useFoundPokemon(inputValue, setLoading, setFoundPokemon, setPokemons);
       }, 500);
       return () => clearTimeout(handler);
-    }, [inputValue, fetchPokemons]);
+    }, [inputValue]);
 
     const handlePress = (pokemonName) => {
         navigate(`/Pokemon/${pokemonName}`)
@@ -90,14 +42,20 @@ const Home = () => {
   
     useEffect(() => {
       setContent(
-        pokemons.map((pokemon, index) => (
+        foundPokemon ? (
+          <div className='card'>
+            <CustomCard handleClick={()=> handlePress(foundPokemon.name)} title={foundPokemon.name} fetchUrl={foundPokemon.url} imageKey={foundPokemon.sprites.front_default}
+              number={ ()=> getPokemonIndex(foundPokemon) } fetchfunction={pokeDetails}/>
+          </div>
+          // <div>{foundPokemon.name}</div>
+        ):(pokemons.map((pokemon, index) => (
           <div key={`${pokemon.url}-${index}`} className='card'>
             <CustomCard handleClick={()=> handlePress(pokemon.name)} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"}
               number={ ()=> getPokemonNumber(pokemon.url) } fetchfunction={pokeDetails}/>
           </div>
-        ))
+        )))
       )
-    },[pokemons])
+    },[pokemons, foundPokemon])
   
     return (
       <>
