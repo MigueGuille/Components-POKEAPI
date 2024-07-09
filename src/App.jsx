@@ -1,113 +1,22 @@
 import { useState, useEffect, useCallback } from 'react'
 import './App.css'
-import { loadMorePokemons } from "./services/loadMorePokemons"
-import CardView from './pages/cardView'
-import CustomCard from './components/customCard/CustomCard.jsx'
-import Header from './components/header/header'
-import CustomInput from './components/CustomInput/CustomInput.jsx'
-import InfiniteScroll from './components/InfinityScroll/infinityScroll.jsx'
-import CustomDropdown from './components/customDropdown/CustomDropdown'
+import Home from './pages/Home'
+import Page from './pages/Page/Page'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 //This is a test
 
 function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [pokemons, setPokemons] = useState([]);
-  const [foundPokemon, setFoundPokemon] = useState(null);
-  const [offset, setOffset] = useState(20);
-  const [loading, setLoading] = useState(false);
-  console.log(pokemons)
-  const [content, setContent] = useState(null)
-
-  // Function to load more pokemons
-  const handleLoadMorePokemons = () => {
-    loadMorePokemons(offset, setPokemons, setOffset, setLoading);
-  };
-
-
-  const fetchPokemons = useCallback(async () => {
-    setLoading(true);
-    try {
-      if (inputValue) {
-        // Fetch a specific pokemon
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
-        const data = await response.json();
-        console.log(data)
-        setFoundPokemon(data); 
-      } else {
-        // Fetch all pokemons
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
-        const data = await response.json();
-        setPokemons(data.results); 
-        setFoundPokemon(null); 
-      }
-    } catch (error) {
-      console.error('Failed to fetch pokemons:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [inputValue]);
-
-  // const handleInputChange = useCallback(debounce((value) => {
-  //   setInputValue(value);
-  //   if (value.trim() !== '') {
-  //     fetchPokemon(value);
-  //     console.log(pokemons)
-  //   } else {
-  //     handleLoadMorePokemons(); 
-  //   }
-  // }, 200), []); 
-
-  const onChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  function getPokemonNumber(url){  
-    const urlSplitted = url.split('/');
-    urlSplitted.pop();
-    const digitsNumber = (urlSplitted[urlSplitted.length-1] + '').split('')
-    let newDigitsNumber = digitsNumber;
-    for(let d=digitsNumber.length; d<4; d++){
-      newDigitsNumber= ['0'].concat(newDigitsNumber)
-    }
-    
-    return newDigitsNumber.join('')
-  }
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      fetchPokemons();
-    }, 500);
-    return () => clearTimeout(handler);
-  }, [inputValue, fetchPokemons]);
-
-  useEffect(() => {
-    setContent(
-      pokemons.map((pokemon, index) => (
-        <div key={`${pokemon.url}-${index}`} className='card'>
-          <CustomCard handleClick={() => console.log('Clicked') } title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
-            number={ ()=> getPokemonNumber(pokemon.url) } />
-        </div>
-      ))
-    )
-  },[pokemons])
+  // const navigate = useNavigate();
 
   return (
     <>
-      <Header title="Pokedex">
-        <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
-      </Header>
-      <div className='body-app'>
-        <div className='dropdown-app'>
-          <CustomDropdown placeholder="Select the option"/>
-        </div>
-        <div className='content-app'>
-          {content}
-          <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
-        </div>
-      </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/Pokemon/:id" element={<Page />} />
+    </Routes>
     </>
-  );
+  )
 }
 
 export default App;
