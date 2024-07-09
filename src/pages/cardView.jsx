@@ -1,7 +1,7 @@
 import React from "react";
-import "./cardView.css";
-import CustomButton from "../components/customButton/customButton";
-import useFetchPokemonDetails from "../services/pokeDetails";
+import "./CardView.css";
+import CustomButton from "../components/customButton/CustomButton";
+import useFetchPokemonDetails from "../services/PokeDetails.jsx";
 
 const CardView = ({ pokemon }) => {
     const pokemonDetails = useFetchPokemonDetails(pokemon.url);
