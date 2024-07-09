@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import usePokeId from "../../services/UsePokeId";
+import usePokeId from "../../services/hooks/UsePokeId";
 
 const Page = () => {
     const { id } = useParams();

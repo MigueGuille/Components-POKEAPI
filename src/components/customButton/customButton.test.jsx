@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
-import CustomButton from './CustomButton';
+// import CustomButton from './CustomButton';
 
 describe('CustomButton', () => {
     it('should call onClick when clicked', () => {

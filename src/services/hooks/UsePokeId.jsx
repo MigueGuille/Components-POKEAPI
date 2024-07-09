@@ -16,4 +16,4 @@ const usePokeId = (id) => {
         return pokemonDetails;
     }
 
-export default usePokeId;
+    export default usePokeId;

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import CustomButton from "./CustomButton";
+import CustomButton from './CustomButton';
 
 export default{
   component: CustomButton,

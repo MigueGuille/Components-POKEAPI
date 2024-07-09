@@ -1,6 +1,6 @@
-import Header from "./Header";
+import Header from './Header';
 import CustomInput from "../customInput/CustomInput";
-import CustomInputStories from "../customInput/CustomInput.stories";
+// import CustomInputStories from "../customInput/CustomInput.stories";
 
 export default{
   component: Header,

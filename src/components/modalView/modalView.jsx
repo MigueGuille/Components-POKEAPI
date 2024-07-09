@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './modalView.css';
-import CustomButton from '../customButton/customButton';
 import useFetchPokemonDetails from '../../services/pokeDetails';
 
 const CustomModal = ({children, title, fetchUrl, imageKey}) => {

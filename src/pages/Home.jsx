@@ -1,12 +1,16 @@
 import { useState, useEffect, useCallback } from 'react'
 import './Home.css'
-import { loadMorePokemons } from '../services/loadMorePokemons.jsx'
-import CustomCard from '../components/customCard/CustomCard.jsx'
-import Header from '../components/header/header.jsx'
-import CustomInput from '../components/CustomInput/CustomInput.jsx'
-import InfiniteScroll from '../components/InfinityScroll/infinityScroll.jsx'
-import CustomDropdown from '../components/customDropdown/CustomDropdown'
+import loadMorePokemons from '../services/hooks/loadMorePokemons.jsx'
+import CustomCard from '@migueguille/components/dist/customCard/CustomCard'
+// import { CustomCard } from '../components/index.js'
+import Header from '@migueguille/components/dist/header/Header'
+// import Header from '../components/header/Header'
+import CustomInput from '@migueguille/components/dist/customInput/CustomInput'
+import InfiniteScroll from '@migueguille/components/dist/infinityScroll/InfinityScroll'
+import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
+import { pokeDetails } from '../services/index.js'
+
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
@@ -80,16 +84,16 @@ const Home = () => {
       return () => clearTimeout(handler);
     }, [inputValue, fetchPokemons]);
 
-    // const handlePress = ({pokemon}) => {
-    //     navigate(`/Pokemon/${pokemon.url}`)
-    // }
+    const handlePress = (pokemonName) => {
+        navigate(`/Pokemon/${pokemonName}`)
+    }
   
     useEffect(() => {
       setContent(
         pokemons.map((pokemon, index) => (
           <div key={`${pokemon.url}-${index}`} className='card'>
-            <CustomCard  title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
-              number={ ()=> getPokemonNumber(pokemon.url) } />
+            <CustomCard handleClick={()=> handlePress(pokemon.name)} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"}
+              number={ ()=> getPokemonNumber(pokemon.url) } fetchfunction={pokeDetails}/>
           </div>
         ))
       )

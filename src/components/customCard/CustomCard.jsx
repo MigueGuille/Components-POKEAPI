@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
-import useFetchPokemonDetails from '../../services/pokeDetails';
+// import pokeDetails from '../hooks/pokeDetails';
 
-const CustomCard = ({ number, title, fetchUrl, imageKey}) => {
+const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunction}) => {
 
-  const pokemonDetails = useFetchPokemonDetails(fetchUrl);
-  const navigate = useNavigate();
+  const pokemonDetails = fetchfunction(fetchUrl);
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
-  const handleClick = () => {
-    console.log(pokemonDetails);
-    navigate(`/Pokemon/${title}`);
-  }
+  // const handleClick = () => {
+  //   console.log(pokemonDetails);
+  // }
   return (
     <div className="customCard">
       <div className="customCard-content">

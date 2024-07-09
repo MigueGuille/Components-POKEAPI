@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const InfiniteScroll = ({ loading, fetchMoreData }) => {
+const InfinityScroll = ({ loading, fetchMoreData }) => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 100 || loading) return;
@@ -14,4 +14,4 @@ const InfiniteScroll = ({ loading, fetchMoreData }) => {
   return null;
 };
 
-export default InfiniteScroll;
+export default InfinityScroll;

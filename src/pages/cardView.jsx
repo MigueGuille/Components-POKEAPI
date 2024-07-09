@@ -1,6 +1,6 @@
 import React from "react";
 import "./cardView.css";
-import CustomButton from "../components/customButton/customButton";
+// import CustomButton from "../components/CustomButton/CustomButton";
 import useFetchPokemonDetails from "../services/pokeDetails";
 
 const CardView = ({ pokemon }) => {
