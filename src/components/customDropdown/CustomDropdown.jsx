@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './CustomDropdown.css'
 
 const options = [
-  { value: 'asc', label: 'Orden ascendente' },
-  { value: 'desc', label: 'Orden descendente' },
+  { value: 'asc', label: 'Ascending order' },
+  { value: 'desc', label: 'Descending order' },
   { value: 'alf', label: 'A-Z' },
   { value: 'alf-inv', label: 'Z-A' },
 ];

@@ -10,6 +10,7 @@ import InfiniteScroll from '@migueguille/components/dist/infinityScroll/Infinity
 import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
 import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon } from '../services/index.js'
+import './Home.css'
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
