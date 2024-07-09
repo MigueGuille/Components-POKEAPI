@@ -7,6 +7,7 @@ import Header from './components/header/header'
 import CustomInput from './components/CustomInput/CustomInput'
 import InfiniteScroll from './components/InfinityScroll/infinityScroll'
 import StatsModal from './components/descriptions/modalstats'
+import Change from './components/changeModal/change'
 
 
 function App() {
@@ -49,8 +50,9 @@ setComponentA(!alternA)
   {pokemons.map((pokemon, index) => (
   <div key={`${pokemon.url}-${index}`} className='card'>
     {/* <button onClick={alternComp}></button> */}
-   {alternA ? <ModalView onClick={alternComp} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} /> :
-    <StatsModal onClick={alternComp} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} fetchUrl={pokemon.url} pokeType= {"name"}/>}
+   {/* {alternA ? <ModalView onClick={alternComp} title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} /> :
+    <StatsModal onClick={alternComp} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} fetchUrl={pokemon.url} pokeType= {"name"}/>} */}
+<Change title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} description = {pokemon.types} pokename = {pokemon.name} image= {"front_default"} pokeType= {"name"}/>
   </div>
 ))}
   <InfiniteScroll loading={loading} fetchMoreData={fetchPokemons} />

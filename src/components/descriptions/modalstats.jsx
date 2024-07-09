@@ -3,7 +3,6 @@ import useFetchPokemonDetails from "../../services/pokeDetails"
 
 const StatsModal = ({description, pokename, image, pokeType, fetchUrl, onClick}) =>{
 const pokemonDetails = useFetchPokemonDetails(fetchUrl)
-const five = "generation-iv"
 const imageUrl = pokemonDetails ? pokemonDetails.sprites.versions['generation-vii']['icons'][image] : '';
 const typin = pokemonDetails ? pokemonDetails.types.map(type=>type.type[pokeType]): [];
 // const typeUrl = `https://pokeapi.co/api/v2/type/${typin}/`;

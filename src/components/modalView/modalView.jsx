@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import './modalView.css';
 import CustomButton from '../customButton/customButton';
 import useFetchPokemonDetails from '../../services/pokeDetails';
+import StatsModal from '../descriptions/modalstats';
 
 const CustomModal = ({handleClick, title, fetchUrl, imageKey, onClick}) => {
 
   const pokemonDetails = useFetchPokemonDetails(fetchUrl);
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
 
+   
 
     return (
         <div className="modal" onClick={onClick}>
