@@ -11,7 +11,7 @@ const CustomCard = ({ number, title, fetchUrl, imageKey}) => {
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
   const handleClick = () => {
     console.log(pokemonDetails);
-    navigate(`/Pokemon/${title}`);
+    navigate(`/pokemon/${title}`);
   }
   return (
     <div className="customCard">
