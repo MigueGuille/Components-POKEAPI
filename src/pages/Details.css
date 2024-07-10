@@ -2,24 +2,31 @@
   color: black;
 }
 
-.body-app-d{
-  margin-left: -0px;
+
+.container-id{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
 }
 
 .id{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  width: 70%;
+  width: min-content;
   text-transform: capitalize;
-  margin-top: 50px;
+  background-color: #5e2129;
+  border-radius: 30px;
+  padding: 0 30px;
+  font-size: 14px;
 }
 
 .content-app-d{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: -150px;
 }
 
 .details{
@@ -30,6 +37,7 @@
 
 .image img{
   width: 500px;
+  margin-left: -150px;
 }
 
 .specs{
@@ -43,11 +51,34 @@
 .versions{
   margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  background-color: #11141B;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.container-versions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .versions div{
   margin: 5px;
+}
+
+.openButton{
+  background-color: #242424;
+  border-radius: 20px;
+  width: max-content;
+  padding: 5px 20px;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 0 5px 1px #242424;
+}
+
+.openButton:hover{
+  box-shadow: 0 2px 5px 3px #000;
 }
 
 
@@ -60,16 +91,16 @@
 
 
 
-.body-app-d svg{
+.versions svg{
   border-radius: 100%;
   background-color: gray;
 }
 
-.body-app-d svg:hover{
+.versions svg:hover{
   opacity: 40%;
 }
 
-.body-app-d path{
+.versions path{
   fill: black;
 }
 
