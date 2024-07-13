@@ -1,0 +1,58 @@
+.triangle-up-diamond{
+  left: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-left: 250px solid transparent;
+  border-right: 250px solid transparent;
+  border-bottom: 271px #ddd solid;
+  top: 58px;
+  left: 378px;
+}
+
+.triangle-down-diamond{
+  left: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-left: 250px solid transparent;
+  border-right: 250px solid transparent;
+  border-top: 271px #ddd solid;
+  top: 329px;
+  left: 378px;
+}
+
+.rectLeft{
+  position: absolute;
+  width: 410px;
+  height: 50px;
+  left: 0;
+  top: 304px;
+  opacity: 60%;
+  background-color: #ddd;
+}
+
+.rectRight{
+  position: absolute;
+  width: 470px;
+  height: 50px;
+  left: 850px;
+  top: 304px;
+  opacity: 60%;
+  background-color: #ddd;
+}
+
+.triangle-evolutions{
+  left: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  border-left: 250px solid transparent;
+  border-right: 250px solid transparent;
+  border-bottom: 271px #ddd solid;
+  top: 58px;
+  left: 378px;
+}

@@ -4,12 +4,12 @@
     align-items: center;
     padding: 0 20px;
     margin: 0;
-    background-color:rgb(216, 0, 0);
+    background-color:#d80000;
     /*border-bottom: 1px solid #ccc;*/
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 1319px;
     z-index: 1000;
 }
 
@@ -26,4 +26,8 @@
     margin-left: 3%;
     width: 10%;
     height: 10%;
+}
+
+.header-body img{
+    cursor: pointer;
 }

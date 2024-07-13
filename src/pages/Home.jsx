@@ -9,13 +9,18 @@ import { useNavigate } from 'react-router-dom'
 import './Home.css'
 import TopScroll from '../components/topScroll/TopScroll.jsx'
 
-const Home = () => {
+const Home = ({ scroll }) => {
+    if(scroll===undefined)
+      scroll=false
+    else
+      scroll=true
+
+
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
     const [foundPokemon, setFoundPokemon] = useState(null);
     const [offset, setOffset] = useState(20);
     const [loading, setLoading] = useState(false);
-    console.log(pokemons)
     const [content, setContent] = useState(null)
     const navigate = useNavigate();
   
@@ -47,7 +52,15 @@ const Home = () => {
         setLoading(false);
       }
     }, [inputValue]);
-  
+
+    useEffect(()=>{
+      if(scroll){
+        document.body.className = ''
+      }else{
+        document.body.className = 'body-noscroll'
+      }
+    },[])
+
     // const handleInputChange = useCallback(debounce((value) => {
     //   setInputValue(value);
     //   if (value.trim() !== '') {

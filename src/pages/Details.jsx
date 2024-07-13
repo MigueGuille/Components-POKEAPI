@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CustomInput from '../components/customInput/CustomInput'
 import Header from '../components/header/Header'
 import { setUISelection } from '@testing-library/user-event/dist/cjs/document/UI.js';
@@ -6,12 +6,18 @@ import Loading from '../components/loading/Loading';
 import './Details.css'
 import usePokeId from "../services/UsePokeId";
 import { useParams } from "react-router-dom";
+import CustomPokeVersion from '../components/customPokeVersion/CustomPokeVersion'
+import { useContext } from 'react';
+import { HeaderContext } from '../components/headerProvider/HeaderProvider';
+import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
 
-export default function Details(){
+export default function Details({ scroll }){
+  if(scroll===undefined)
+    scroll=false
+  else
+    scroll=true
 
   const { id } = useParams();
-//  const pokemonDetails = usePokeId(id);
-  console.log(id)
 
   const [isLoaded, setIsLoaded] = useState(false)
   const [pokeData, setPokeData] = useState(null);
@@ -24,12 +30,10 @@ export default function Details(){
   const [pokeEntries, setPokeEntries] = useState(null);
   const [pokeCategory, setPokeCategory] = useState(null);
   const [pokeWeight, setPokeWeight] = useState(null);
-  const [pokeVersions, setPokeVersions] = useState(null);
   const [indexFlavor, setIndexFlavor] = useState(0);
   const [isVersionOpened, setIsVersionOpened] = useState(false);
-  const [allVersions, setAllVersions] = useState(null);
+  const [pokeVersions, setPokeVersions] = useState(null);
   const [partVersions, setPartVersions] = useState(null);
-  const [divVersions, setDivVersions] = useState(null);
 
   const [pokeGender, setPokeGender] = useState(null);
   //https://pokeapi.co/api/v2/gender/2/
@@ -37,21 +41,18 @@ export default function Details(){
   //https://pokeapi.co/api/v2/type/18
   const [pokeEvols, setPokeEvols] = useState(null);
   const [pokeStats, setPokeStats] = useState(null);
+  let divVersions = useRef();
+
 
   useEffect(()=>{
     fecthPokeData();
-    callSetDivVersions();
+    if(scroll){
+      document.body.className = ''
+    }else{
+      document.body.className = 'body-noscroll'
+    }
   },[])
 
-  function callSetDivVersions(){
-    if(document.getElementsByClassName('versions')[0]){
-      setDivVersions(document.getElementsByClassName('versions')[0]);
-    }else{
-      setTimeout(()=>{
-        callSetDivVersions();
-      },100);
-    }
-  }
 
 
   async function fecthPokeData(){
@@ -83,14 +84,7 @@ export default function Details(){
 
       setPokeWeight(pokeData.weight);
       setIsLoaded(true);
-      
-      
-      //console.log(dataUrl.flavor_text_entries.map((entrie)=>entrie.version.name))
     }
-  }
-
-  function clickVersion(index){
-    setIndexFlavor(index);
   }
 
   function openVersions(){
@@ -99,85 +93,64 @@ export default function Details(){
 
   useEffect(()=>{
     if(pokeEntries){
-      setAllVersions(
+      setPokeVersions(
         pokeEntries.map((entrie, index)=>
-          <div className={entrie.version.name} onClick={()=>{clickVersion(index)}} >
-            <svg width='30' height='30' viewBox='-3 -3 30 30' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-              <rect width='30' height='30' stroke='none' fill='#000000' opacity='0'/>
-              <g transform="matrix(1.25 0 0 1.25 12 12)" >
-              <path style={{stroke: 'none', 'stroke-width': 1, 'stroke-dasharray': 'none', 'stroke-linecap': 'butt', 'stroke-dashoffset': 0, 'stroke-linejoin': 'miter', 'stroke-miterlimit': 4, 'fill-rule': 'nonzero', 'opacity': 1}} transform=" translate(-16, -16)" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.199219 6 25.441406 9.933594 25.9375 15 L 19.84375 15 C 19.398438 13.28125 17.851563 12 16 12 C 14.148438 12 12.601563 13.28125 12.15625 15 L 6.0625 15 C 6.558594 9.933594 10.800781 6 16 6 Z M 16 14 C 17.117188 14 18 14.882813 18 16 C 18 17.117188 17.117188 18 16 18 C 14.882813 18 14 17.117188 14 16 C 14 14.882813 14.882813 14 16 14 Z M 16 15 C 15.449219 15 15 15.449219 15 16 C 15 16.550781 15.449219 17 16 17 C 16.550781 17 17 16.550781 17 16 C 17 15.449219 16.550781 15 16 15 Z M 6.0625 17 L 12.15625 17 C 12.601563 18.71875 14.148438 20 16 20 C 17.851563 20 19.398438 18.71875 19.84375 17 L 25.9375 17 C 25.441406 22.066406 21.199219 26 16 26 C 10.800781 26 6.558594 22.066406 6.0625 17 Z" stroke-linecap="round" />
-              </g>
-            </svg>
-          </div>
+           <CustomPokeVersion key={index} entrie={entrie} index={index} setIndexFlavor={setIndexFlavor} />
         )
       )
     }
   },[pokeEntries])
 
-  useEffect(()=>{
-    if(allVersions){
-      console.log(allVersions)
-      console.log(allVersions.filter((entrie, index)=>index<11))
-    }
-  },[allVersions])
-
-  useEffect(()=>{
-    if(!isVersionOpened){
-      if(divVersions){
-        if(divVersions.style)
-          divVersions.style.boxShadow = 'inset 0 -20px 10px rgba(255, 255, 255, 0.9)';
-          divVersions.style.marginBottom = '';
-      }
-    }else{
-      if(divVersions){
-        if(divVersions.style){
-          divVersions.style.boxShadow = '';
-          divVersions.style.marginBottom = '10px';
-        }
-      }
-    }
-  },[isVersionOpened])
-
-  useEffect(()=>{
-    if(divVersions)
-      divVersions.style.boxShadow = 'inset 0 -20px 10px rgba(255, 255, 255, 0.9)';
-  },[divVersions])
+  function getNumber(id){
+    if(id<10)
+      return '000'+id;
+    else if(id<100)
+      return '00'+id;
+    else if(id<1000)
+      return '0'+id;
+    else
+      return id;
+  }
 
   return(
     <>
-      <Header title="Pokedex">
+      <Header>
           <CustomInput />
       </Header>
 
-      <div className='body-app-d'>
+      <div className='body-app-d'  >
         { isLoaded ? 
         <>
-          <div className='content-app-d'>
+        
+        <BackgroundShapes id={pokeId} />
+
+          <div className='content-app-d' >
             <div className='container-id'>
               <div className='id'>
-                <h2> {pokeName} </h2>
-                <svg width="50" height="50" viewBox="0 -2 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 2C7.77614 2 8 2.22386 8 2.5L8 12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5L7 2.5C7 2.22386 7.22386 2 7.5 2Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                <h2> {pokeId} </h2>
+                <p> {getNumber(pokeId)} </p>
+                <p> {pokeName}  </p>
               </div>
             </div>
+            
 
             <div className='details'>
               <div className='image'>
                 <img src={pokeFrontDef} />
               </div>
 
-              <div className='specs'>
-                { <p> {pokeEntries[indexFlavor].flavor_text} </p> }
-                <div className='container-versions'>
-                  <div className='versions'>
-                    {
-                      isVersionOpened ? allVersions : allVersions ? allVersions.filter((entrie, index)=>index<11) : <Loading />
-                    }
-                  </div>
-                  <div className='openButton' onClick={openVersions}>
-                    { isVersionOpened ? 'Collapse' : 'Expand' }
-                  </div>
+              <div className='container-versions'>
+                <div className='versions' ref={divVersions} >
+                  {
+                    isVersionOpened ? pokeVersions : pokeVersions ? pokeVersions.filter((entrie, index)=>index<7) : <Loading />
+                  }
                 </div>
+                {/*<div className='openButton' onClick={openVersions}>
+                  { isVersionOpened ? 'Collapse' : 'Expand' }
+                </div>*/}
+              </div>
+
+              {/**<div className='specs'>
+                { <p> {pokeEntries[indexFlavor].flavor_text} </p> }
                 <div className='category'>
                   <h3>Category</h3>
                   { 
@@ -185,7 +158,7 @@ export default function Details(){
                   <p key={index} > {ctgy.genus} </p>
                 ) }
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </>

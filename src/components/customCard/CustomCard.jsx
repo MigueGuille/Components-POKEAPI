@@ -10,7 +10,6 @@ const CustomCard = ({ number, title, fetchUrl, imageKey}) => {
   const navigate = useNavigate();
   const imageUrl = pokemonDetails ? pokemonDetails.sprites[imageKey] : '';
   const handleClick = () => {
-    console.log(pokemonDetails);
     navigate(`/pokemon/${title}`);
   }
   return (
