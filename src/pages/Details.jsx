@@ -10,6 +10,7 @@ import CustomPokeVersion from '../components/customPokeVersion/CustomPokeVersion
 import { useContext } from 'react';
 import { HeaderContext } from '../components/headerProvider/HeaderProvider';
 import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
+import Versions from '../components/versions/Versions';
 
 export default function Details({ scroll }){
   if(scroll===undefined)
@@ -31,18 +32,15 @@ export default function Details({ scroll }){
   const [pokeCategory, setPokeCategory] = useState(null);
   const [pokeWeight, setPokeWeight] = useState(null);
   const [indexFlavor, setIndexFlavor] = useState(0);
-  const [isVersionOpened, setIsVersionOpened] = useState(false);
-  const [pokeVersions, setPokeVersions] = useState(null);
-  const [partVersions, setPartVersions] = useState(null);
-
   const [pokeGender, setPokeGender] = useState(null);
+  const [pokeVersions, setPokeVersions] = useState(null);
   //https://pokeapi.co/api/v2/gender/2/
   const [pokeWeakness, setPokeWeakness] = useState(null);
   //https://pokeapi.co/api/v2/type/18
   const [pokeEvols, setPokeEvols] = useState(null);
   const [pokeStats, setPokeStats] = useState(null);
-  let divVersions = useRef();
-
+  const [color, setColor] = useState('#dddddd');
+  
 
   useEffect(()=>{
     fecthPokeData();
@@ -52,18 +50,16 @@ export default function Details({ scroll }){
       document.body.className = 'body-noscroll'
     }
   },[])
-
-
+  
+  useEffect(()=>{
+    setPokeDataa();
+  },[pokeData])
 
   async function fecthPokeData(){
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
     setPokeData(data)
   }
-
-  useEffect(()=>{
-    setPokeDataa();
-  },[pokeData])
 
   async function setPokeDataa(){
     if(pokeData!==null){
@@ -87,15 +83,11 @@ export default function Details({ scroll }){
     }
   }
 
-  function openVersions(){
-    isVersionOpened ? setIsVersionOpened(false) : setIsVersionOpened(true)
-  }
-
   useEffect(()=>{
     if(pokeEntries){
       setPokeVersions(
         pokeEntries.map((entrie, index)=>
-           <CustomPokeVersion key={index} entrie={entrie} index={index} setIndexFlavor={setIndexFlavor} />
+           <CustomPokeVersion color={color} key={index} entrie={entrie} index={index} setIndexFlavor={setIndexFlavor} />
         )
       )
     }
@@ -112,6 +104,14 @@ export default function Details({ scroll }){
       return id;
   }
 
+  useEffect(()=>{
+    switch(pokeId){
+      case 1: 
+      case 6: setColor('#274A6A'); break;
+      case 7: setColor('#b5f4ff'); break;
+    }
+  },[pokeId])
+
   return(
     <>
       <Header>
@@ -122,7 +122,7 @@ export default function Details({ scroll }){
         { isLoaded ? 
         <>
         
-        <BackgroundShapes id={pokeId} />
+        <BackgroundShapes getNumber={getNumber} id={pokeId} color={color} />
 
           <div className='content-app-d' >
             <div className='container-id'>
@@ -138,19 +138,10 @@ export default function Details({ scroll }){
                 <img src={pokeFrontDef} />
               </div>
 
-              <div className='container-versions'>
-                <div className='versions' ref={divVersions} >
-                  {
-                    isVersionOpened ? pokeVersions : pokeVersions ? pokeVersions.filter((entrie, index)=>index<7) : <Loading />
-                  }
-                </div>
-                {/*<div className='openButton' onClick={openVersions}>
-                  { isVersionOpened ? 'Collapse' : 'Expand' }
-                </div>*/}
-              </div>
-
+              <Versions pokeVersions={pokeVersions} />
+              
+              <div className='flavor-text'> {pokeEntries[indexFlavor].flavor_text} </div>
               {/**<div className='specs'>
-                { <p> {pokeEntries[indexFlavor].flavor_text} </p> }
                 <div className='category'>
                   <h3>Category</h3>
                   { 

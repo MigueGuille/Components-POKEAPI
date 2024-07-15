@@ -29,6 +29,18 @@
   margin: 0;
 }
 
+.flavor-text{
+  position: absolute;
+  top: 145px;
+  left: 945px;
+  width: 310px;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+}
+
 .content-app-d{
   display: flex;
   flex-direction: column;
@@ -58,6 +70,13 @@
   height: min-content;
 }
 
+.category{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .versions{
   position: absolute;
   width: 310px;
@@ -67,7 +86,6 @@
   background-color: #808080;
   border-radius: 20px;
   padding: 0;
-
 }
 
 .container-versions > *{
@@ -92,28 +110,6 @@
   padding-top: 3px;
 }
 
-.openButton{
-  position: absolute;
-  background-color: #5e2129;
-  border-radius: 20px;
-  width: max-content;
-  padding: 5px 20px;
-  text-align: center;
-  font-size: 14px;
-  box-shadow: 0 0 5px 1px #5e2129;
-}
-
-.openButton:hover{
-  box-shadow: 0 2px 5px 3px #361318;
-}
-
-
-.category{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
 
 .versions svg{
   border-radius: 100%;

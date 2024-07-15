@@ -4,7 +4,7 @@ import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
 import useFetchPokemonDetails from '../../services/PokeDetails';
 
-const CustomCard = ({ number, title, fetchUrl, imageKey}) => {
+const CustomCard = ({ id, number, title, fetchUrl, imageKey}) => {
 
   const pokemonDetails = useFetchPokemonDetails(fetchUrl);
   const navigate = useNavigate();

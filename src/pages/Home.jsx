@@ -38,13 +38,13 @@ const Home = ({ scroll }) => {
           const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`);
           const data = await response.json();
           console.log(data)
-          setFoundPokemon(data); 
+          setFoundPokemon(data);
         } else {
           // Fetch all pokemons
           const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0');
           const data = await response.json();
-          setPokemons(data.results); 
-          setFoundPokemon(null); 
+          setPokemons(data.results);
+          setFoundPokemon(null);
         }
       } catch (error) {
         console.error('Failed to fetch pokemons:', error);
@@ -102,7 +102,7 @@ const Home = ({ scroll }) => {
       setContent(
         pokemons.map((pokemon, index) => (
           <div key={`${pokemon.url}-${index}`} className='card'>
-            <CustomCard  title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
+            <CustomCard title={pokemon.name} fetchUrl={pokemon.url} imageKey={"front_default"} 
               number={ ()=> getPokemonNumber(pokemon.url) } />
           </div>
         ))
