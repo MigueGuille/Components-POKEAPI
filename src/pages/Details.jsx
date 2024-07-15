@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import CustomInput from '../components/customInput/CustomInput'
 import Header from '../components/header/Header'
-import { setUISelection } from '@testing-library/user-event/dist/cjs/document/UI.js';
 import Loading from '../components/loading/Loading';
 import './Details.css'
-import usePokeId from "../services/UsePokeId";
 import { useParams } from "react-router-dom";
 import CustomPokeVersion from '../components/customPokeVersion/CustomPokeVersion'
-import { useContext } from 'react';
-import { HeaderContext } from '../components/headerProvider/HeaderProvider';
 import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
 import Versions from '../components/versions/Versions';
+import Characteristics from '../components/characteristics/Characteristics'
 
 export default function Details({ scroll }){
   if(scroll===undefined)
@@ -21,25 +18,20 @@ export default function Details({ scroll }){
   const { id } = useParams();
 
   const [isLoaded, setIsLoaded] = useState(false)
-  const [pokeData, setPokeData] = useState(null);
 
-  const [pokeName, setPokeName] = useState(null);
-  const [pokeId, setPokeId] = useState(null);
-  const [pokeTypes, setPokeTypes] = useState(null);
-  const [pokeHeight, setPokeHeight] = useState(null);
+  const [pokeCharacteristics, setPokeCharacteristics] = useState(null);
   const [pokeFrontDef, setPokeFrontDef] = useState(null);
   const [pokeEntries, setPokeEntries] = useState(null);
-  const [pokeCategory, setPokeCategory] = useState(null);
-  const [pokeWeight, setPokeWeight] = useState(null);
   const [indexFlavor, setIndexFlavor] = useState(0);
-  const [pokeGender, setPokeGender] = useState(null);
   const [pokeVersions, setPokeVersions] = useState(null);
-  //https://pokeapi.co/api/v2/gender/2/
-  const [pokeWeakness, setPokeWeakness] = useState(null);
-  //https://pokeapi.co/api/v2/type/18
-  const [pokeEvols, setPokeEvols] = useState(null);
-  const [pokeStats, setPokeStats] = useState(null);
   const [color, setColor] = useState('#dddddd');
+
+  /**Weakness
+   //https://pokeapi.co/api/v2/gender/2/
+   * Evols
+   //https://pokeapi.co/api/v2/type/18
+   * Stats
+  */
   
 
   useEffect(()=>{
@@ -50,37 +42,34 @@ export default function Details({ scroll }){
       document.body.className = 'body-noscroll'
     }
   },[])
-  
-  useEffect(()=>{
-    setPokeDataa();
-  },[pokeData])
 
   async function fecthPokeData(){
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
-    setPokeData(data)
-  }
-
-  async function setPokeDataa(){
-    if(pokeData!==null){
-      setPokeName(pokeData.name);
-      setPokeId(pokeData.id);
-      setPokeTypes(pokeData.types.map((t)=>t.type.name));
-      setPokeHeight(pokeData.height);
-      setPokeFrontDef(pokeData.sprites.front_default);
+    
+    setPokeFrontDef(data.sprites.front_default);
       
-      const resUrl = await fetch(pokeData.species.url)
-      const dataUrl = await resUrl.json();
+    const resUrl = await fetch(data.species.url)
+    const dataUrl = await resUrl.json();
+    
+    const genus = dataUrl.genera.filter(gen=> gen.language.name=='en')
+    
+    let obj = {}
+    obj.id = data.id;
+    obj.name = data.name;
+    obj.category = genus;
+    obj.weight = data.weight;
+    obj.height = data.height;
+    obj.abilities = data.abilities;
+    
+    setPokeCharacteristics(obj);
 
-      const enEntries = dataUrl.flavor_text_entries.filter((entrie)=> entrie.language.name==='en')
-      setPokeEntries(enEntries);
-      
-      const genus = dataUrl.genera.filter(gen=> gen.language.name=='en')
-      setPokeCategory(genus);
+    //setPokeTypes(pokeData.types.map((t)=>t.type.name));
+    
+    const enEntries = dataUrl.flavor_text_entries.filter((entrie)=> entrie.language.name==='en')
+    setPokeEntries(enEntries);
 
-      setPokeWeight(pokeData.weight);
-      setIsLoaded(true);
-    }
+    setIsLoaded(true);
   }
 
   useEffect(()=>{
@@ -105,12 +94,14 @@ export default function Details({ scroll }){
   }
 
   useEffect(()=>{
-    switch(pokeId){
-      case 1: 
-      case 6: setColor('#274A6A'); break;
-      case 7: setColor('#b5f4ff'); break;
+    if(pokeCharacteristics){
+      switch(pokeCharacteristics.id){
+        case 1: 
+        case 6: setColor('#274A6A'); break;
+        case 7: setColor('#b5f4ff'); break;
+      }
     }
-  },[pokeId])
+  },[pokeCharacteristics])
 
   return(
     <>
@@ -122,13 +113,14 @@ export default function Details({ scroll }){
         { isLoaded ? 
         <>
         
-        <BackgroundShapes getNumber={getNumber} id={pokeId} color={color} />
+          <BackgroundShapes getNumber={getNumber} id={pokeCharacteristics.id} color={color} />
+          <Characteristics characteristics={pokeCharacteristics} />
 
           <div className='content-app-d' >
             <div className='container-id'>
               <div className='id'>
-                <p> {getNumber(pokeId)} </p>
-                <p> {pokeName}  </p>
+                <p> {getNumber(pokeCharacteristics.id)} </p>
+                <p> {pokeCharacteristics.name}  </p>
               </div>
             </div>
             
@@ -141,15 +133,6 @@ export default function Details({ scroll }){
               <Versions pokeVersions={pokeVersions} />
               
               <div className='flavor-text'> {pokeEntries[indexFlavor].flavor_text} </div>
-              {/**<div className='specs'>
-                <div className='category'>
-                  <h3>Category</h3>
-                  { 
-                 pokeCategory.map((ctgy, index)=>
-                  <p key={index} > {ctgy.genus} </p>
-                ) }
-                </div>
-              </div> */}
             </div>
           </div>
         </>

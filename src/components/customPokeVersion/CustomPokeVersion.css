@@ -9,6 +9,10 @@
   font-weight: 600;
 }
 
+.version svg{
+  cursor: pointer;
+}
+
 .red svg, .red path{
   background-color: rgb(200, 0, 0);
 }

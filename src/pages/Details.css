@@ -88,24 +88,6 @@
   padding: 0;
 }
 
-.container-versions > *{
-  padding: 5px;
-  margin: 0;
-}
-
-.container-versions{
-  position: absolute;
-  top: 81px;
-  left: 1099px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  width: min-content;
-  height: min-content;
-}
-
 .versions div{
   padding-top: 3px;
 }

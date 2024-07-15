@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Loading from "../loading/Loading";
-
+import './Versions.css'
 
 const Versions = ({ pokeVersions })=>{
 

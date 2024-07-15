@@ -8,6 +8,8 @@ import CustomDropdown from '../components/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
 import TopScroll from '../components/topScroll/TopScroll.jsx'
+import { createContext } from 'react'
+
 
 const Home = ({ scroll }) => {
     if(scroll===undefined)
@@ -15,21 +17,56 @@ const Home = ({ scroll }) => {
     else
       scroll=true
 
-
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
     const [foundPokemon, setFoundPokemon] = useState(null);
     const [offset, setOffset] = useState(20);
     const [loading, setLoading] = useState(false);
     const [content, setContent] = useState(null)
+    const [allPokeGenders, setAllPokeGenders] = useState(null);
+    const [allGenders, setAllGenders] = useState(null);
     const navigate = useNavigate();
   
     // Function to load more pokemons
     const handleLoadMorePokemons = () => {
       loadMorePokemons(offset, setPokemons, setOffset, setLoading);
     };
+
+    async function fetchGenders(){
+      console.log('fetching')
+      let arr = [];
+      for(let i=1; i<=3; i++) {
+        const response = await fetch('https://pokeapi.co/api/v2/gender/'+i)
+        const data = await response.json();
+        arr.push(data);
+      }
+      setAllGenders(arr);
+    }
   
+    useEffect(()=>{
+      let objp = [];
+      
+      if(allGenders){
+        for(let a in allGenders){
+          for(let p in allGenders[a].pokemon_species_details){
+            let obj = {};
+            obj.name = allGenders[a].pokemon_species_details[p].pokemon_species.name;
+            obj.gender = allGenders[a].name;
+            objp[allGenders[a].pokemon_species_details[p].pokemon_species.url.split('/')[allGenders[a].pokemon_species_details[p].pokemon_species.url.split('/').length-2]] = obj
+          }
+        }
+      }
+
+      setAllPokeGenders(objp);
+    },[allGenders])
   
+    useEffect(()=>{
+      if(allPokeGenders){
+        console.log(allPokeGenders)
+        //console.log(allPokeGenders.length-1)
+      }
+    },[allPokeGenders])
+
     const fetchPokemons = useCallback(async () => {
       setLoading(true);
       try {
@@ -59,6 +96,7 @@ const Home = ({ scroll }) => {
       }else{
         document.body.className = 'body-noscroll'
       }
+      fetchGenders();
     },[])
 
     // const handleInputChange = useCallback(debounce((value) => {
