@@ -8,6 +8,7 @@ import CustomPokeVersion from '../components/customPokeVersion/CustomPokeVersion
 import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
 import Versions from '../components/versions/Versions';
 import Characteristics from '../components/characteristics/Characteristics'
+import Stats from '../components/stats/Stats';
 
 export default function Details({ scroll }){
   if(scroll===undefined)
@@ -61,6 +62,7 @@ export default function Details({ scroll }){
     obj.weight = data.weight;
     obj.height = data.height;
     obj.abilities = data.abilities;
+    obj.stats = data.stats;
     
     setPokeCharacteristics(obj);
 
@@ -115,6 +117,7 @@ export default function Details({ scroll }){
         
           <BackgroundShapes getNumber={getNumber} id={pokeCharacteristics.id} color={color} />
           <Characteristics characteristics={pokeCharacteristics} />
+          <Stats stats={pokeCharacteristics.stats} />
 
           <div className='content-app-d' >
             <div className='container-id'>
