@@ -7,7 +7,7 @@ const Stats = ({ stats })=>{
     console.log(stats)
   },[stats])
 
-  //17 rayitas de 15 cada una, redondear a floor, porque sino nunca hay máximo (?)
+  //17 rayitas de 15 cada una, redondear a floor
   //Si puedo pintarlo sin rayitas, mejor ¿objeto canvas?
 
   return(

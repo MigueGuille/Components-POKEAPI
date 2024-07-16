@@ -26,7 +26,7 @@ const Characteristics = ({ characteristics })=>{
       {/*Gender*/}
       <div className='char abilities'>
         <div className='text'>Abilities:</div>
-        <div className='cont-abilities'> <Ability characteristics={characteristics}/></div>
+        <div className='cont-abilities'> <Ability showHidden characteristics={characteristics}/></div>
       </div>
     </div>
   )

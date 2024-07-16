@@ -3,7 +3,6 @@ import './Ability.css'
 
 const Ability = ({ characteristics, showHidden })=>{
   
-  showHidden=true
   showHidden===undefined ? showHidden=false : showHidden=true
 
   let thisAbility = useRef()
