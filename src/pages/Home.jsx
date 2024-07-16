@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
-import { loadMorePokemons } from '../services/LoadMorePokemons.jsx'
+import { loadMorePokemons } from '../services/loadMorePokemons.jsx'
 import CustomCard from '../components/customCard/CustomCard.jsx'
-import Header from '../components/header/Header.jsx'
-import CustomInput from '../components/customInput/CustomInput.jsx'
-import InfiniteScroll from '../components/infinityScroll/InfinityScroll.jsx'
+import Header from '../components/header/header.jsx'
+import CustomInput from '../components/CustomInput/CustomInput.jsx'
+import InfiniteScroll from '../components/InfinityScroll/infinityScroll.jsx'
 import CustomDropdown from '../components/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
@@ -11,11 +11,8 @@ import TopScroll from '../components/topScroll/TopScroll.jsx'
 import { createContext } from 'react'
 
 
-const Home = ({ scroll }) => {
-    if(scroll===undefined)
-      scroll=false
-    else
-      scroll=true
+const Home = () => {
+  
 
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
@@ -24,7 +21,6 @@ const Home = ({ scroll }) => {
     const [loading, setLoading] = useState(false);
     const [content, setContent] = useState(null)
     const [allPokeGenders, setAllPokeGenders] = useState(null);
-    const [allGenders, setAllGenders] = useState(null);
     const navigate = useNavigate();
   
     // Function to load more pokemons
@@ -32,40 +28,7 @@ const Home = ({ scroll }) => {
       loadMorePokemons(offset, setPokemons, setOffset, setLoading);
     };
 
-    async function fetchGenders(){
-      console.log('fetching')
-      let arr = [];
-      for(let i=1; i<=3; i++) {
-        const response = await fetch('https://pokeapi.co/api/v2/gender/'+i)
-        const data = await response.json();
-        arr.push(data);
-      }
-      setAllGenders(arr);
-    }
   
-    useEffect(()=>{
-      let objp = [];
-      
-      if(allGenders){
-        for(let a in allGenders){
-          for(let p in allGenders[a].pokemon_species_details){
-            let obj = {};
-            obj.name = allGenders[a].pokemon_species_details[p].pokemon_species.name;
-            obj.gender = allGenders[a].name;
-            objp[allGenders[a].pokemon_species_details[p].pokemon_species.url.split('/')[allGenders[a].pokemon_species_details[p].pokemon_species.url.split('/').length-2]] = obj
-          }
-        }
-      }
-
-      setAllPokeGenders(objp);
-    },[allGenders])
-  
-    useEffect(()=>{
-      if(allPokeGenders){
-        console.log(allPokeGenders)
-        //console.log(allPokeGenders.length-1)
-      }
-    },[allPokeGenders])
 
     const fetchPokemons = useCallback(async () => {
       setLoading(true);
@@ -90,14 +53,6 @@ const Home = ({ scroll }) => {
       }
     }, [inputValue]);
 
-    useEffect(()=>{
-      if(scroll){
-        document.body.className = ''
-      }else{
-        document.body.className = 'body-noscroll'
-      }
-      fetchGenders();
-    },[])
 
     // const handleInputChange = useCallback(debounce((value) => {
     //   setInputValue(value);
@@ -152,14 +107,14 @@ const Home = ({ scroll }) => {
         <Header title="Pokedex">
           <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
         </Header>
-        <TopScroll />
         <div className='body-app'>
           <div className='dropdown-app'>
             <CustomDropdown placeholder="Select the option"/>
-          </div>
           <div className='content-app'>
             {content}
+            <TopScroll />
             <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
+          </div>
           </div>
         </div>
       </>

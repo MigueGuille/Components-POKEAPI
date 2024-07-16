@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
-import useFetchPokemonDetails from '../../services/PokeDetails';
+import useFetchPokemonDetails from '../../services/pokeDetails';
 
 const CustomCard = ({ id, number, title, fetchUrl, imageKey}) => {
 

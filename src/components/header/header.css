@@ -6,10 +6,10 @@
     margin: 0;
     background-color:#d80000;
     /*border-bottom: 1px solid #ccc;*/
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 1319px;
+    width: 100%;
     z-index: 1000;
 }
 
