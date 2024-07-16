@@ -23,6 +23,9 @@ const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunct
   return (
     <div className="customCard"onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="customCard-content">
+        <div className="customCard-id">
+          <p>{ number() }</p>
+        </div>
         <div className="customCard-body" onClick={handleClick}>
         {pokemonDetails ? (
             <img src={imageUrl} alt={title} className='customCard-image'/>
@@ -30,9 +33,10 @@ const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunct
             <img src={imageKey} alt={title} className='customCard-image'/>
           )}
         </div>
-        <div className="customCard-header">
-          <p>{ number() }</p>
-          <h4>{title.toUpperCase()}</h4>
+        <div className='customCard-name'>
+          <div className='name'>
+            <h4>{title.toUpperCase()}</h4>
+          </div>
         </div>
       </div>
       {isModalVisible && pokemonDetails && (

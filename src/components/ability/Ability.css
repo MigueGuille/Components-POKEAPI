@@ -1,0 +1,17 @@
+.ab{
+  text-transform: capitalize;
+  width: max-content;
+}
+
+.ab:hover{
+  text-decoration: underline;
+}
+
+.container-ab{
+  display: flex;
+  flex-direction: row;
+}
+
+.hidden{
+  opacity: 70%;
+}

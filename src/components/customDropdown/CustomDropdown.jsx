@@ -14,7 +14,7 @@ const CustomDropdown = ({placeholder}) => {
   
 
   return (
-    <div>
+    <div className='container'>
       <div className='select' onClick={ ()=> open ? setOpen(false) : setOpen(true) }>
         <label>{placeholder}</label>
         <button>

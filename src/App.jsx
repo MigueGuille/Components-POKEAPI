@@ -1,22 +1,19 @@
-import { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import Home from './pages/Home'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Details from './pages/Details'
-import Page from './pages/Page/Page'
-
-//This is a test
+// import Header from './components/header/Header'
+import HeaderProvider from './components/headerProvider/HeaderProvider'
 
 function App() {
-  // const navigate = useNavigate();
-
   return (
-    <>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/Pokemon/:id" element={<Details />} />
-    </Routes>
-    </>
+    <HeaderProvider>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/Pokemon/:id"
+          element={<Details />} />
+      </Routes>
+    </HeaderProvider>
   )
 }
 

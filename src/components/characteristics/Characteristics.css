@@ -1,0 +1,31 @@
+.poke-data{
+  position: absolute;
+  top: 92px;
+  left: 52px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+.text{
+  font-weight: 600;
+}
+
+.char{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+}
+
+.height{
+  top: 35px;
+}
+
+.weight{
+  top: 70px;
+}
+
+.abilities{
+  top: 105px;
+}

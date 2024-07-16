@@ -1,0 +1,152 @@
+.triangle-up-diamond {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 25vw solid transparent;
+  border-right: 25vw solid transparent;
+  border-bottom: 50vh solid blue; /* Cambia el color según tu preferencia */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.triangle-down-diamond {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 25vw solid transparent;
+  border-right: 25vw solid transparent;
+  border-top: 50vh solid blue; /* Cambia el color según tu preferencia */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.rectLeft {
+  position: absolute;
+  width: 30vw; /* Ancho igual al borde izquierdo del rombo */
+  height: 10vh; /* Altura completa de la pantalla */
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 60%;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rectRight {
+  position: absolute;
+  width: 30vw; /* Ancho igual al borde derecho del rombo */
+  height: 10vh; /* Altura completa de la pantalla */
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 60%;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .triangle-style{
+  position: absolute;
+  width: 0;
+  height: 0;
+  
+  border-left: 286px solid transparent;
+  border-right: 286px solid transparent;
+  border-bottom: 418px solid transparent;
+  top: 236px;
+  left: 339px;
+} */
+  
+/* .triangle-tw{
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 60%;
+
+  border-left: 273px solid transparent;
+  border-right: 273px solid transparent;
+  border-top: 296px solid transparent;
+  top: 58px;
+  left: 355px;
+} */
+
+.text-specs{
+  position: absolute;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.text-char{
+  top: 253px;
+  left: 183px;
+}
+
+.text-status{
+  top: 378px;
+  left: 284px;
+}
+
+.text-evolution{
+  top: 378px;
+  left: 879px;
+}
+
+.text-versions{
+  top: 253px;
+  left: 879px;
+}
+
+.arrow-left{
+  position: absolute;
+  top: 316px;
+  left: 25px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.arrow-left path{
+  transform: scale(6,3)
+}
+
+.arrow-right{
+  position: absolute;
+  top: 316px;
+  left: 1245px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.arrow-right path{
+  transform: scale(6,3)
+}
+
+.text-arrows{
+  position: absolute;
+  font-size: 22px;
+  font-family: monospace;
+  /* top: 313px; */
+  text-transform: uppercase;
+}
+
+.text-arrows:hover{
+  text-decoration: underline;
+  display: block;
+  cursor: pointer;
+}
+
+.text-next-pokemon{
+  right: 88px;
+}
+
+.text-prev-pokemon{
+  left: 88px;
+}

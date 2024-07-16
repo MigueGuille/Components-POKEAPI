@@ -11,20 +11,28 @@ import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDr
 import { useNavigate } from 'react-router-dom'
 import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon } from '../services/index.js'
 import './Home.css'
+import TopScroll from '../components/topScroll/TopScroll.jsx'
+import { createContext } from 'react'
+
 
 const Home = () => {
+  
+
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
     const [foundPokemon, setFoundPokemon] = useState(null);
     const [offset, setOffset] = useState(20);
     const [loading, setLoading] = useState(false);
+    console.log(pokemons)
     const [content, setContent] = useState(null)
+    const [allPokeGenders, setAllPokeGenders] = useState(null);
     const navigate = useNavigate();
   
     // Function to load more pokemons
     const handleLoadMorePokemons = () => {
       loadMorePokemons(offset, setPokemons, setOffset, setLoading);
     };
+
   
     const onChange = (event) => {
       setInputValue(event.target.value);
@@ -66,10 +74,11 @@ const Home = () => {
         <div className='body-app'>
           <div className='dropdown-app'>
             <CustomDropdown placeholder="Select the option"/>
-          </div>
           <div className='content-app'>
             {content}
+            <TopScroll />
             <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
+          </div>
           </div>
         </div>
       </>

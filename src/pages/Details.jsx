@@ -1,70 +1,104 @@
-import { useEffect, useState } from 'react';
-import CustomInput from '../components/customInput/CustomInput'
-import Header from '../components/header/Header'
-import { setUISelection } from '@testing-library/user-event/dist/cjs/document/UI.js';
+import { useEffect, useRef, useState } from 'react';
+import CustomInput from '../components/CustomInput/CustomInput';
+import Header from '../components/header/header'
 import Loading from '../components/loading/Loading';
 import './Details.css'
 import { usePokeId } from '../services/index';
 import { useParams } from "react-router-dom";
 // import { pokeDetails } from '@migueguille/components';
+import CustomPokeVersion from '../components/customPokeVersion/CustomPokeVersion'
+import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
+import Versions from '../components/versions/Versions';
+import Characteristics from '../components/characteristics/Characteristics'
+import Stats from '../components/stats/Stats';
 
-export default function Details(){
+export default function Details({ scroll }){
+  if(scroll===undefined)
+    scroll=false
+  else
+    scroll=true
 
   const { id } = useParams();
  const pokemonDetails = usePokeId(id)
   console.log(id)
 
-  const [isReady, setIsReady] = useState(false)
-  const [pokeData, setPokeData] = useState(null);
-  const [pokeEntries, setPokeEntries] = useState(null);
-  const [pokeCategory, setPokeCategory] = useState(null);
-  const [pokeWeight, setPokeWeight] = useState(null);
-  const [pokeVersions, setPokeVersions] = useState(null);
-  const [indexFlavor, setIndexFlavor] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  const [pokeGender, setPokeGender] = useState(null);
-  //https://pokeapi.co/api/v2/gender/2/
-  const [pokeWeakness, setPokeWeakness] = useState(null);
-  //https://pokeapi.co/api/v2/type/18
-  const [pokeEvols, setPokeEvols] = useState(null);
-  const [pokeStats, setPokeStats] = useState(null);
+  const [pokeCharacteristics, setPokeCharacteristics] = useState(null);
+  const [pokeFrontDef, setPokeFrontDef] = useState(null);
+  const [pokeEntries, setPokeEntries] = useState(null);
+  const [indexFlavor, setIndexFlavor] = useState(0);
+  const [pokeVersions, setPokeVersions] = useState(null);
+  const [color, setColor] = useState('#dddddd');
+
+  /**Weakness
+   //https://pokeapi.co/api/v2/gender/2/
+   * Evols
+   //https://pokeapi.co/api/v2/type/18
+   * Stats
+  */
+  
 
   useEffect(()=>{
     fecthPokeData();
+    if(scroll){
+      // document.body.className = ''
+    }else{
+      // document.body.className = 'body-noscroll'
+    }
   },[])
 
-  
   async function fecthPokeData(){
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
-    setPokeData(data)
+    
+    setPokeFrontDef(data.sprites.front_default);
+      
+    const resUrl = await fetch(data.species.url)
+    const dataUrl = await resUrl.json();
+    
+    const genus = dataUrl.genera.filter(gen=> gen.language.name=='en')
+    
+    let obj = {}
+    obj.id = data.id;
+    obj.name = data.name;
+    obj.category = genus;
+    obj.weight = data.weight;
+    obj.height = data.height;
+    obj.abilities = data.abilities;
+    obj.stats = data.stats;
+    
+    setPokeCharacteristics(obj);
+
+    //setPokeTypes(pokeData.types.map((t)=>t.type.name));
+    
+    const enEntries = dataUrl.flavor_text_entries.filter((entrie)=> entrie.language.name==='en')
+    setPokeEntries(enEntries);
+
+    setIsLoaded(true);
   }
 
   useEffect(()=>{
-    setPokeDataa();
-  },[pokeData])
-
-  async function setPokeDataa(){
-    if(pokemonDetails!==null){
-      
-      const resUrl = await fetch(pokemonDetails.species.url)
-      const dataUrl = await resUrl.json();
-
-      const enEntries = dataUrl.flavor_text_entries.filter((entrie)=> entrie.language.name==='en')
-      setPokeEntries(enEntries);
-      
-      const genus = dataUrl.genera.filter(gen=> gen.language.name=='en')
-      setPokeCategory(genus);
-      setIsReady(true);
-      
-      
-      //console.log(dataUrl.flavor_text_entries.map((entrie)=>entrie.version.name))
+    if(pokeEntries){
+      setPokeVersions(
+        pokeEntries.map((entrie, index)=>
+           <CustomPokeVersion color={color} key={index} entrie={entrie} index={index} setIndexFlavor={setIndexFlavor} />
+        )
+      )
     }
+  },[pokeEntries])
+
+  function getNumber(id){
+    if(id<10)
+      return '000'+id;
+    else if(id<100)
+      return '00'+id;
+    else if(id<1000)
+      return '0'+id;
+    else
+      return id;
   }
 
-  function handleOnClick(index){
-    setIndexFlavor(index);
-  }
 
   return(
     <>
@@ -72,45 +106,34 @@ export default function Details(){
           {/* <CustomInput /> */}
       </Header>
 
-      <div className='body-app'>
-        { isReady ? 
+      <div className='body-app-d'  >
+        { isLoaded ? 
         <>
-          <div className='content-app'>
-            <div className='id'>
-              <h2> {pokemonDetails.name} </h2>
-              <h2> {pokemonDetails.id} </h2>
+        
+          <BackgroundShapes getNumber={getNumber} id={pokeCharacteristics.id} color={color} />
+          <Characteristics characteristics={pokeCharacteristics} />
+          <Stats stats={pokeCharacteristics.stats} />
+
+          <div className='content-app-d' >
+            <div className='container-id'>
+              <div className='id'>
+                <p> {getNumber(pokeCharacteristics.id)} </p>
+                <p> {pokeCharacteristics.name}  </p>
+              </div>
             </div>
+            
 
             <div className='details'>
               <div className='image'>
                 <img src={pokemonDetails.sprites.front_default} />
               </div>
-
-              <div className='specs'>
-                { <p> {pokeEntries[indexFlavor].flavor_text} </p> }
-                <div className='versions'>
-                  {
-                    pokeEntries.map((entrie, index)=>
-                      <div className={entrie.version.name} onClick={()=>{handleOnClick(index)}} >
-                        <svg width='30' height='30' viewBox='-3 -3 30 30' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-                          <rect width='30' height='30' stroke='none' fill='#000000' opacity='0'/>
-                          <g transform="matrix(1.25 0 0 1.25 12 12)" >
-                          <path style={{stroke: 'none', 'stroke-width': 1, 'stroke-dasharray': 'none', 'stroke-linecap': 'butt', 'stroke-dashoffset': 0, 'stroke-linejoin': 'miter', 'stroke-miterlimit': 4, 'fill-rule': 'nonzero', 'opacity': 1}} transform=" translate(-16, -16)" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.199219 6 25.441406 9.933594 25.9375 15 L 19.84375 15 C 19.398438 13.28125 17.851563 12 16 12 C 14.148438 12 12.601563 13.28125 12.15625 15 L 6.0625 15 C 6.558594 9.933594 10.800781 6 16 6 Z M 16 14 C 17.117188 14 18 14.882813 18 16 C 18 17.117188 17.117188 18 16 18 C 14.882813 18 14 17.117188 14 16 C 14 14.882813 14.882813 14 16 14 Z M 16 15 C 15.449219 15 15 15.449219 15 16 C 15 16.550781 15.449219 17 16 17 C 16.550781 17 17 16.550781 17 16 C 17 15.449219 16.550781 15 16 15 Z M 6.0625 17 L 12.15625 17 C 12.601563 18.71875 14.148438 20 16 20 C 17.851563 20 19.398438 18.71875 19.84375 17 L 25.9375 17 C 25.441406 22.066406 21.199219 26 16 26 C 10.800781 26 6.558594 22.066406 6.0625 17 Z" stroke-linecap="round" />
-                          </g>
-                        </svg>
-                      </div>
-                    )
-                  }
-                </div>
-                <div className='category'>
-                  <h3>Category</h3>
-                  { 
-                 pokeCategory.map((ctgy, index)=>
-                  <p key={index} > {ctgy.genus} </p>
-                ) }
-                </div>
-              </div>
+              <div className='versions-div'>
+            <Versions pokeVersions={pokeVersions} />
+          </div>
             </div>
+
+
+          <div className='flavor-text'>{pokeEntries[indexFlavor].flavor_text}</div>
           </div>
         </>
         : <Loading /> }
