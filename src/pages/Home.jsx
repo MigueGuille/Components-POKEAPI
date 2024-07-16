@@ -3,8 +3,8 @@ import './Home.css'
 import loadMorePokemons from '../services/hooks/loadMorePokemons.jsx'
 // import CustomCard from '@migueguille/components/dist/customCard/CustomCard'
 import { CustomCard } from '../components/index.js'
-import Header from '@migueguille/components/dist/header/Header'
-// import Header from '../components/header/Header'
+// import Header from '@migueguille/components/dist/header/Header'
+import Header from '../components/header/header'
 import CustomInput from '@migueguille/components/dist/customInput/CustomInput'
 import InfiniteScroll from '@migueguille/components/dist/infinityScroll/InfinityScroll'
 import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDropdown'
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon } from '../services/index.js'
 import './Home.css'
 import TopScroll from '../components/topScroll/TopScroll.jsx'
-import { createContext } from 'react'
+import pokelogo from '../assets/pokelogo.png'
 
 
 const Home = () => {
@@ -68,7 +68,7 @@ const Home = () => {
   
     return (
       <>
-        <Header title="Pokedex">
+        <Header pokelogo={pokelogo}>
           <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
         </Header>
         <div className='body-app'>

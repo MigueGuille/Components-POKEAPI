@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import './Header.css'
+import './header.css'
 // import pokelogo from '../../assets/pokelogo.png'
 import { useNavigate } from 'react-router-dom';
 import { HeaderContext } from '../headerProvider/HeaderProvider';
 
-const Header = ({ children, style }) => {
+const Header = ({ children, style, pokelogo }) => {
   
   const { setHeader } = useContext(HeaderContext);
   const thisHeader = useRef();

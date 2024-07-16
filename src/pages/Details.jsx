@@ -11,6 +11,7 @@ import BackgroundShapes from '../components/backgroundShapes/BackgroundShapes';
 import Versions from '../components/versions/Versions';
 import Characteristics from '../components/characteristics/Characteristics'
 import Stats from '../components/stats/Stats';
+import pokelogo from '../assets/pokelogo.png'
 
 export default function Details({ scroll }){
   if(scroll===undefined)
@@ -102,7 +103,7 @@ export default function Details({ scroll }){
 
   return(
     <>
-      <Header title="Pokedex">
+      <Header pokelogo={pokelogo}>
           {/* <CustomInput /> */}
       </Header>
 
