@@ -1,5 +1,5 @@
 // loadMorePokemons.js
-import usePokefetch from './usePokeFetch'; // Assuming you have this function in a separate file
+import usePokefetch from './UsePokeFetch'; // Assuming you have this function in a separate file
 
 const loadMorePokemons = async (offset, setPokemons, setOffset, setLoading) => {
   setLoading(true);

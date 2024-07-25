@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './carousel.css';
+import './Carousel.css';
 
 const Carousel = ({ pokemonId }) => {
   const [sprites, setSprites] = useState([]);

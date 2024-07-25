@@ -1,4 +1,4 @@
-import Header from '../components/header/header';
+import Header from '../components/header/Header';
 import CustomInput from "../customInput/CustomInput";
 // import CustomInputStories from "../customInput/CustomInput.stories";
 

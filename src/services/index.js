@@ -1,7 +1,7 @@
-import  loadMorePokemons from "./hooks/loadMorePokemons";
-import pokeDetails from "./hooks/pokeDetails";
+import  loadMorePokemons from "./hooks/LoadMorePokemons";
+import pokeDetails from "./hooks/PokeDetails";
 import usePokeId from "./hooks/UsePokeId";
-import usePokefetch from "./hooks/usePokeFetch";
+import usePokefetch from "./hooks/UsePokeFetch";
 import useFoundPokemon from "./hooks/UseFoundPokemon";
 import { getPokemonNumber, getPokemonIndex } from "./functions/GetPokemonNumber";
 

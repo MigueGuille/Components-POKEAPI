@@ -4,7 +4,7 @@ import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
 // import pokeDetails from '../hooks/pokeDetails';
 // import modalStats from '../modalStats/modalstats';
-import StatsModal from '../modalStats/modalstats';
+import StatsModal from '../modalStats/Modalstats';
 
 const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunction}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);

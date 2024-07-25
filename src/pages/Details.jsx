@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import CustomInput from '../components/CustomInput/CustomInput';
-import Header from '../components/header/header'
+import Header from '../components/header/Header'
 import Loading from '../components/loading/Loading';
 import './Details.css'
 import { usePokeId } from '../services/index';
@@ -12,7 +12,7 @@ import Versions from '../components/versions/Versions';
 import Characteristics from '../components/characteristics/Characteristics'
 import Stats from '../components/stats/Stats';
 import pokelogo from '../assets/pokelogo.png'
-import Carousel from '../components/carrusel/carousel';
+import Carousel from '../components/carousel/Carousel';
 
 export default function Details({ scroll }){
   if(scroll===undefined)

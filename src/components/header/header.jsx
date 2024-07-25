@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import './header.css'
+import './Header.css'
 // import pokelogo from '../../assets/pokelogo.png'
 import { useNavigate } from 'react-router-dom';
 import { HeaderContext } from '../headerProvider/HeaderProvider';

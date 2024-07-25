@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
-import StatsModal from "../descriptions/modalstats";
-import ModalView from "../modalView/modalView";
+import StatsModal from "../descriptions/Modalstats";
+import ModalView from "../modalView/ModalView";
 
 const Change =({description, pokename, image, pokeType, fetchUrl, title, imageKey, })=>{
 

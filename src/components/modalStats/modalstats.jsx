@@ -1,5 +1,5 @@
-import "./modalstats.css"
-import useFetchPokemonDetails from "../../services/hooks/pokeDetails"
+import "./Modalstats.css"
+import useFetchPokemonDetails from "../../services/hooks/PokeDetails"
 
 const StatsModal = ({pokemonDetails, handleClick}) =>{
 
