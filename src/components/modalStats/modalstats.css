@@ -24,13 +24,21 @@ margin-right: 110px;
 
 }
 
+.title-modal{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin-bottom: 10px;
+
+}
+
 .object-content{
     display: flex;
 }
 
 .image-content{
-    background-color: rgb(243, 111, 111) ;
-    display: grid;
+    /* display: grid; */
+    align-items: center;
     justify-content: center;
     color: rgb(0, 0, 0);
     border-radius: 10%;

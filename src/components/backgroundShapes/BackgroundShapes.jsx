@@ -59,7 +59,7 @@ const BackgroundShapes=({ getNumber, id, color })=>{
       <div className='triangle-tw' ref={triangleTW}></div>
       <div className='triangle-down-diamond' ref={triangleDownDiamond}></div>
 
-      <div className='rectLeft' onClick={nextPage} ref={rectLeft}>
+      <div className='rectLeft' onClick={prevPage} ref={rectLeft}>
       {id > 1 ? 
       <>
         {/* <svg className='arrow-left' onClick={()=>id > 1 ? location.replace(`/pokemon/${id-1}`) : ''} width="50" height="50" viewBox="10 9 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.81809 4.18179C8.99383 4.35753 8.99383 4.64245 8.81809 4.81819L6.13629 7.49999L8.81809 10.1818C8.99383 10.3575 8.99383 10.6424 8.81809 10.8182C8.64236 10.9939 8.35743 10.9939 8.1817 10.8182L5.1817 7.81819C5.09731 7.73379 5.0499 7.61933 5.0499 7.49999C5.0499 7.38064 5.09731 7.26618 5.1817 7.18179L8.1817 4.18179C8.35743 4.00605 8.64236 4.00605 8.81809 4.18179Z" fill="#333333" fill-rule="evenodd" clip-rule="evenodd"></path></svg> */}

@@ -12,6 +12,7 @@ import Versions from '../components/versions/Versions';
 import Characteristics from '../components/characteristics/Characteristics'
 import Stats from '../components/stats/Stats';
 import pokelogo from '../assets/pokelogo.png'
+import Carousel from '../components/carrusel/carousel';
 
 export default function Details({ scroll }){
   if(scroll===undefined)
@@ -21,7 +22,7 @@ export default function Details({ scroll }){
 
   const { id } = useParams();
  const pokemonDetails = usePokeId(id)
-  console.log(id)
+  console.log(pokemonDetails)
 
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -52,6 +53,7 @@ export default function Details({ scroll }){
   async function fecthPokeData(){
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
+    console.log(data.sprites)
     
     setPokeFrontDef(data.sprites.front_default);
       
@@ -126,7 +128,7 @@ export default function Details({ scroll }){
 
             <div className='details'>
               <div className='image'>
-                <img src={pokemonDetails.sprites.front_default} />
+                <Carousel pokemonId={id}></Carousel>
               </div>
               <div className='versions-div'>
             <Versions pokeVersions={pokeVersions} />

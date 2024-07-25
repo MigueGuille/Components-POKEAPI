@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import './CustomCard.css';
 // import CustomButton from '../customButton/CustomButton';
 // import pokeDetails from '../hooks/pokeDetails';
-import modalStats from '../descriptions/modalstats';
-import StatsModal from '../descriptions/modalstats';
+// import modalStats from '../modalStats/modalstats';
+import StatsModal from '../modalStats/modalstats';
 
 const CustomCard = ({ handleClick, number, title, fetchUrl, imageKey, fetchfunction}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);

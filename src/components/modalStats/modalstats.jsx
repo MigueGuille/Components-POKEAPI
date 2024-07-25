@@ -5,7 +5,10 @@ const StatsModal = ({pokemonDetails, handleClick}) =>{
 
 return(
 <div className="customCard-modal" onClick={handleClick}>
-      <h3>{pokemonDetails.name}</h3>
+  <div className="title-modal">
+  <img src={pokemonDetails.sprites.versions["generation-viii"].icons.front_default} alt={pokemonDetails.name} className='image-content'/>
+  <h3>{pokemonDetails.name}</h3>
+  </div>
       <p>Height: {pokemonDetails.height}</p>
       <p>Weight: {pokemonDetails.weight}</p>
       <p>Base Experience: {pokemonDetails.base_experience}</p>
