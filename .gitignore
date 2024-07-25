@@ -23,8 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-package-lock.json
-package.json
-vite.config.json
-*storybook.log
-Details Responsive.jsx
+# package-lock.json
+# package.json
+# vite.config.json
+# *storybook.log
+# Details Responsive.jsx
