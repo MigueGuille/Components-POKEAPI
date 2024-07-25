@@ -3,6 +3,7 @@ import './BackgroundShapes.css'
 
 
 const BackgroundShapes=({ getNumber, id, color })=>{
+
   let triangleDownDiamond = useRef()
   let triangleUpDiamond = useRef()
   let triangleStyle = useRef()
@@ -54,7 +55,7 @@ const BackgroundShapes=({ getNumber, id, color })=>{
   return(
     
     <>
-      <div className='triangle-up-diamond' ref={triangleUpDiamond}>Holaaa</div>
+      <div className='triangle-up-diamond' ref={triangleUpDiamond}></div>
       <div className='triangle-style' ref={triangleStyle}></div>
       <div className='triangle-tw' ref={triangleTW}></div>
       <div className='triangle-down-diamond' ref={triangleDownDiamond}></div>
