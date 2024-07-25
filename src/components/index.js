@@ -1,4 +1,4 @@
-import CustomButton from "./customButton/customButton";
+import CustomButton from "./customButton/CustomButton";
 import CustomCard from "./customCard/CustomCard";
 import CustomInput from "./CustomInput/CustomInput";
 // import CustomModal from "./customModal/CustomModal";
