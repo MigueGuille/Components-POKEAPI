@@ -15,8 +15,11 @@ import TopScroll from '../components/topScroll/TopScroll.jsx'
 import pokelogo from '../assets/pokelogo.png'
 
 
-const Home = () => {
-  
+const Home = ({ noscroll }) => {
+    if(noscroll===undefined)
+      noscroll=false
+    else
+      noscroll=true
 
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
@@ -33,6 +36,13 @@ const Home = () => {
       loadMorePokemons(offset, setPokemons, setOffset, setLoading);
     };
 
+    useEffect(()=>{
+      if(!noscroll){
+        document.body.className = ''
+      }else{
+        document.body.className = 'body-noscroll'
+      }
+    })
   
     const onChange = (event) => {
       setInputValue(event.target.value);

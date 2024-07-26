@@ -1,50 +1,91 @@
-.triangle-up-diamond {
+.trngl-up-dmnd-cont{
+  height: 42.81vh;
+  width: 37.9vw;
   position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 25vw solid transparent;
-  border-right: 25vw solid transparent;
-  border-bottom: 50vh solid blue; /* Cambia el color según tu preferencia */
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 28.65vw;
+  top: 60px;
 }
 
-.triangle-down-diamond {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 25vw solid transparent;
-  border-right: 25vw solid transparent;
-  border-top: 50vh solid blue; /* Cambia el color según tu preferencia */
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+.trngl-up-dmnd {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #ffffff, #77777777);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
+.trngl-dwn-dmnd-cont{
+  height: 42.81vh;
+  width: 37.9vw;
+  position: absolute;
+  left: 28.65vw;
+  top: 52.5vh;
+}
+
+.trngl-dwn-dmnd {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #00000000, #77777777);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+
+.trngl-style-cont{
+  height: 66.03vh;
+  width: 43.366vw;
+  position: absolute;
+  left: 25.7vw;
+  top: 34vh;
+}
+
+.trngl-style{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #000000, #7f7f7f);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+  
+.trngl-tw-cont{
+  height: 46.76vh;
+  width: 41.4vw;
+  position: absolute;
+  left: 27vw;
+  top: 60px;
+}
+
+.trngl-tw{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #fff, #7f7f7f);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
 
 .rectLeft {
   position: absolute;
-  width: 30vw; /* Ancho igual al borde izquierdo del rombo */
-  height: 10vh; /* Altura completa de la pantalla */
+  width: 35vw;
+  height: 8.3vh;
   left: 0;
-  top: 50%;
+  top: 52.7vh;
   transform: translateY(-50%);
-  opacity: 60%;
+  opacity: 80%;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .rectRight {
   position: absolute;
-  width: 30vw; /* Ancho igual al borde derecho del rombo */
-  height: 10vh; /* Altura completa de la pantalla */
+  width: 40vw;
+  height: 8.3vh; 
   right: 0;
-  top: 50%;
+  top: 52.7vh;
   transform: translateY(-50%);
-  opacity: 60%;
+  opacity: 80%;
   background-color: transparent;
   cursor: pointer;
   display: flex;
@@ -52,30 +93,53 @@
   justify-content: center;
 }
 
-/* .triangle-style{
-  position: absolute;
-  width: 0;
-  height: 0;
-  
-  border-left: 286px solid transparent;
-  border-right: 286px solid transparent;
-  border-bottom: 418px solid transparent;
-  top: 236px;
-  left: 339px;
-} */
-  
-/* .triangle-tw{
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 60%;
+.arrow-left{
+  position: relative;
+  top: 2vh;
+  left: -8vw;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
 
-  border-left: 273px solid transparent;
-  border-right: 273px solid transparent;
-  border-top: 296px solid transparent;
-  top: 58px;
-  left: 355px;
-} */
+.arrow-left path{
+  transform: scale(6,3)
+}
+
+.arrow-right{
+  position: relative;
+  top: 2vh;
+  right: -25vw;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.arrow-right path{
+  transform: scale(6,3)
+}
+
+.text-arrws{
+  position: relative;
+  font-size: 22px;
+  font-family: monospace;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.text-arrws:hover{
+  text-decoration: underline;
+  display: block;
+  cursor: pointer;
+}
+
+.text-next-poke{
+  right: -6.67vw;
+}
+
+.text-prev-poke{
+  left: -6.67vw;
+}
 
 .text-specs{
   position: absolute;
@@ -101,52 +165,4 @@
 .text-versions{
   top: 253px;
   left: 879px;
-}
-
-.arrow-left{
-  position: absolute;
-  top: 316px;
-  left: 25px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-}
-
-.arrow-left path{
-  transform: scale(6,3)
-}
-
-.arrow-right{
-  position: absolute;
-  top: 316px;
-  left: 1245px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-}
-
-.arrow-right path{
-  transform: scale(6,3)
-}
-
-.text-arrows{
-  position: absolute;
-  font-size: 22px;
-  font-family: monospace;
-  /* top: 313px; */
-  text-transform: uppercase;
-}
-
-.text-arrows:hover{
-  text-decoration: underline;
-  display: block;
-  cursor: pointer;
-}
-
-.text-next-pokemon{
-  right: 88px;
-}
-
-.text-prev-pokemon{
-  left: 88px;
 }

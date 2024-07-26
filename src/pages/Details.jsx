@@ -14,14 +14,16 @@ import Stats from '../components/stats/Stats';
 import pokelogo from '../assets/pokelogo.png'
 import Carousel from '../components/carousel/Carousel';
 
-export default function Details({ scroll }){
-  if(scroll===undefined)
-    scroll=false
+export default function Details({ noscroll }){
+  console.log(noscroll)
+  
+  if(noscroll===undefined)
+    noscroll=false
   else
-    scroll=true
+    noscroll=true
 
   const { id } = useParams();
- const pokemonDetails = usePokeId(id)
+  const pokemonDetails = usePokeId(id)
   console.log(pokemonDetails)
 
   const [isLoaded, setIsLoaded] = useState(false)
@@ -31,7 +33,7 @@ export default function Details({ scroll }){
   const [pokeEntries, setPokeEntries] = useState(null);
   const [indexFlavor, setIndexFlavor] = useState(0);
   const [pokeVersions, setPokeVersions] = useState(null);
-  const [color, setColor] = useState('#dddddd');
+  const [color, setColor] = useState({ color1: 'ffffff', color2: '000000' });
 
   /**Weakness
    //https://pokeapi.co/api/v2/gender/2/
@@ -43,10 +45,10 @@ export default function Details({ scroll }){
 
   useEffect(()=>{
     fecthPokeData();
-    if(scroll){
-      // document.body.className = ''
+    if(!noscroll){
+      document.body.className = ''
     }else{
-      // document.body.className = 'body-noscroll'
+      document.body.className = 'body-noscroll'
     }
   },[])
 
@@ -121,7 +123,8 @@ export default function Details({ scroll }){
             <div className='container-id'>
               <div className='id'>
                 <p> {getNumber(pokeCharacteristics.id)} </p>
-                <p> {pokeCharacteristics.name}  </p>
+                <p>{'ajshdakijlas'}</p>
+                {/**<p> {pokeCharacteristics.name}  </p> */}
               </div>
             </div>
             

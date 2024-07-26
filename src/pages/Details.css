@@ -1,21 +1,16 @@
 .container-id{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-  margin-bottom: 20px;
+  position: absolute;
+  width: 100vw;
+  top: 21.8vh;
 }
 
 .id{
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: min-content;
+  align-items: center;
   text-transform: uppercase;
-  /* left: 480px; */
-  top: 130px;
-  /* width: 300px; */
+  left: -2.4vw;
 }
 
 /* .body-app-d{
@@ -28,9 +23,8 @@
 
 .id p{
   /*font-family:  Arial, Georgia, 'Trebuchet MS', Verdana, 'Lucida Sans', 'Gill Sans', monospace;*/
-  
   font-family: monospace;
-  font-size: 32px;
+  font-size: 32px;  
   font-weight: 800;
   color: #333;
   padding: 0;

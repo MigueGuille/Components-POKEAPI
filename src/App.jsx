@@ -9,9 +9,9 @@ function App() {
   return (
     <HeaderProvider>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
         <Route path="/Pokemon/:id"
-          element={<Details />} />
+          element={<Details noscroll/>} />
       </Routes>
     </HeaderProvider>
   )
