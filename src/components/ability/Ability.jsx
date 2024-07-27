@@ -16,11 +16,11 @@ const Ability = ({ characteristics, showHidden })=>{
     index < ab.count-1 ? 
       str+= ',' : ''
 
-    return str
+    return str;
   }
 
   return(
-    <div className='container-ab'>
+    <div className='container-ab' >
       {
         characteristics.abilities.map(ab=>{
           let obj = {}

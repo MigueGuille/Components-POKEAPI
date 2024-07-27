@@ -4,6 +4,7 @@ import './Carousel.css';
 const Carousel = ({ pokemonId }) => {
   const [sprites, setSprites] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(2);
+  const colorArrwsCarousel = '#fff';
 
   useEffect(() => {
     const fetchSprites = async () => {
@@ -40,12 +41,30 @@ const Carousel = ({ pokemonId }) => {
   };
 
   return (
-    <div className="carousel">
-      <button className="carousel-button" onClick={prevSprite}>Previous</button>
+    <div className="carousel" 
+      onMouseEnter={()=>{
+        const arrIcons = document.getElementsByClassName('arr-icons');
+        Array.from(arrIcons).forEach(icon => {
+          icon.getElementsByTagName('path')[0].style.stroke = colorArrwsCarousel;
+        });
+      }} 
+      
+      onMouseLeave={()=>{
+        const arrIcons = document.getElementsByClassName('arr-icons');
+        Array.from(arrIcons).forEach(icon => {
+          icon.getElementsByTagName('path')[0].style.stroke = 'transparent';
+        });
+      }}
+    >
+      <div className="arr-icons" onClick={prevSprite}>
+        <svg className='arr-left' xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" viewBox="0 0 128 128" id="arrows-button-to-right"><path stroke="#000" stroke-linecap="round" stroke-width="5" d="M65 86L83.9239 66.646C85.6338 64.8972 85.6338 62.1028 83.9239 60.354L65 41M50 86L50 41"></path></svg>
+      </div>
       {sprites.length > 0 && (
         <img src={sprites[currentIndex]} alt="Pokemon Sprite" className="carousel-image" />
       )}
-      <button className="carousel-button" onClick={nextSprite}>Next</button>
+      <div className="arr-icons" onClick={nextSprite}>
+        <svg className='arr-right' xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" viewBox="0 0 128 128" id="arrows-button-to-right"><path stroke="#000" stroke-linecap="round" stroke-width="5" d="M65 86L83.9239 66.646C85.6338 64.8972 85.6338 62.1028 83.9239 60.354L65 41M50 86L50 41"></path></svg>
+      </div>
     </div>
   );
 };

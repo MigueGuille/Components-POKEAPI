@@ -24,13 +24,12 @@
     font-size: 20px;
     font-weight: 500;
     color: #f5f5f5;
-    /* margin-left: 10px; */
 }
 
 .input-body{
     
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-right: 100px;

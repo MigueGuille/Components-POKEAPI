@@ -4,11 +4,6 @@ import Ability from '../ability/Ability';
 
 const Characteristics = ({ characteristics })=>{
 
-  useEffect(()=>{
-    console.log(characteristics)
-    
-  },[characteristics])
-
   return(
     <div className='poke-data'>
       <div className='char category'>
@@ -17,17 +12,17 @@ const Characteristics = ({ characteristics })=>{
       </div>
       <div className='char height'>
         <div className='text'>Height:&nbsp;</div>
-        <div className='cont-height'>{ characteristics.height/10 + ' m' }</div>
+        <div className='cont-height'>{ (characteristics.height/10).toFixed(1) + ' m' }</div>
       </div>
       <div className='char weight'>
         <div className='text'>Weight:&nbsp;</div>
-        <div className='cont-weight'>{ characteristics.weight/10 + ' kg' }</div>
+        <div className='cont-weight'>{ (characteristics.weight/10).toFixed(1) + ' kg' }</div>
       </div>
-      {/*Gender*/}
       <div className='char abilities'>
         <div className='text'>Abilities:</div>
         <div className='cont-abilities'> <Ability showHidden characteristics={characteristics}/></div>
       </div>
+      {/*Gender*/}
     </div>
   )
 }

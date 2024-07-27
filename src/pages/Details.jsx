@@ -15,7 +15,6 @@ import pokelogo from '../assets/pokelogo.png'
 import Carousel from '../components/carousel/Carousel';
 
 export default function Details({ noscroll }){
-  console.log(noscroll)
   
   if(noscroll===undefined)
     noscroll=false
@@ -24,7 +23,6 @@ export default function Details({ noscroll }){
 
   const { id } = useParams();
   const pokemonDetails = usePokeId(id)
-  console.log(pokemonDetails)
 
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -55,7 +53,7 @@ export default function Details({ noscroll }){
   async function fecthPokeData(){
     const response = await fetch('https://pokeapi.co/api/v2/pokemon/'+id)
     const data = await response.json();
-    console.log(data.sprites)
+    //console.log(data.sprites)
     
     setPokeFrontDef(data.sprites.front_default);
       
@@ -116,27 +114,26 @@ export default function Details({ noscroll }){
         <>
         
           <BackgroundShapes getNumber={getNumber} id={pokeCharacteristics.id} color={color} />
+            
           <Characteristics characteristics={pokeCharacteristics} />
-          <Stats stats={pokeCharacteristics.stats} />
+          <Stats dataStats={pokeCharacteristics.stats} />
 
           <div className='content-app-d' >
             <div className='container-id'>
               <div className='id'>
                 <p> {getNumber(pokeCharacteristics.id)} </p>
-                <p>{'ajshdakijlas'}</p>
-                {/**<p> {pokeCharacteristics.name}  </p> */}
+                <p>{pokeCharacteristics.name}</p>
               </div>
             </div>
             
-
             <div className='details'>
               <div className='image'>
                 <Carousel pokemonId={id}></Carousel>
               </div>
               <div className='versions-div'>
-            <Versions pokeVersions={pokeVersions} />
-          </div>
-            </div>
+                <Versions pokeVersions={pokeVersions} />
+              </div>
+            </div>          
 
 
           <div className='flavor-text'>{pokeEntries[indexFlavor].flavor_text}</div>

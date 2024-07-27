@@ -11,6 +11,7 @@
   align-items: center;
   text-transform: uppercase;
   left: -2.4vw;
+  top: -3vh;
 }
 
 /* .body-app-d{
@@ -33,14 +34,14 @@
 
 .flavor-text{
   position: absolute;
-  top: 145px;
-  left: 945px;
-  width: 310px;
+  top: 24vh;
+  left: 72.5vw;
+  width: 22vw;
   text-align: justify;
   text-justify: inter-word;
   font-size: 14px;
   font-weight: 600;
-  line-height: normal;
+  line-height: 1.5;
 }
 
 .content-app-d{
@@ -56,19 +57,10 @@
 }
 
 .image {
-  display: flex;
-  justify-content: center; /* Centra la imagen horizontalmente */
-  align-items: center; /* Centra la imagen verticalmente */
-  position: relative; 
-}
-
-.image img {
-  width: 300px;
-  /* top: 210px; */
-  /* left: 482px; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* position: absolute; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  
 }
 
 .specs{
@@ -89,7 +81,7 @@
 }
 
 .versions {
-  position: absolute;
+  position: relative;
   width: 310px;
   margin-top: 20px;
   display: grid;
@@ -113,6 +105,7 @@
 .versions svg{
   border-radius: 100%;
   background-color: gray;
+  margin-top: 5px;
 }
 
 .versions svg:hover{

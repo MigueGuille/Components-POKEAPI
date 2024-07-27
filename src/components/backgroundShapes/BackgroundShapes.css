@@ -30,7 +30,6 @@
   clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
 }
 
-
 .trngl-style-cont{
   height: 66.03vh;
   width: 43.366vw;
@@ -68,14 +67,10 @@
   width: 35vw;
   height: 8.3vh;
   left: 0;
-  top: 52.7vh;
-  transform: translateY(-50%);
+  top: 48.55vh;
   opacity: 80%;
   background-color: transparent;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .rectRight {
@@ -83,20 +78,16 @@
   width: 40vw;
   height: 8.3vh; 
   right: 0;
-  top: 52.7vh;
-  transform: translateY(-50%);
+  top: 48.55vh;
   opacity: 80%;
   background-color: transparent;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .arrow-left{
-  position: relative;
+  position: absolute;
   top: 2vh;
-  left: -8vw;
+  left: 2vw;
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -107,9 +98,9 @@
 }
 
 .arrow-right{
-  position: relative;
+  position: absolute;
   top: 2vh;
-  right: -25vw;
+  right: 2vw;
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -119,12 +110,17 @@
   transform: scale(6,3)
 }
 
+.arrow-left:hover, .arrow-right:hover{
+  opacity: 0.5;
+}
+
 .text-arrws{
   position: relative;
   font-size: 22px;
   font-family: monospace;
   text-transform: capitalize;
   color: #fff;
+  top: 1.5vh;
 }
 
 .text-arrws:hover{
@@ -134,35 +130,75 @@
 }
 
 .text-next-poke{
-  right: -6.67vw;
+  text-align: right;
+  right: 7vw;
 }
 
 .text-prev-poke{
-  left: -6.67vw;
+  text-align: left;
+  left: 7vw;
 }
 
-.text-specs{
+@media (max-width: 1000px) {
+  .text-prev-poke, .text-next-poke{
+    display: none;
+  } 
+}
+
+.text-specs1{
   position: absolute;
   font-size: 20px;
   font-style: italic;
+  width: 20vw;
 }
 
 .text-char{
-  top: 253px;
-  left: 183px;
+  top: 40.45vh;
+  left: 8.5vw;
+  text-align: right;
 }
 
 .text-status{
-  top: 378px;
-  left: 284px;
+  top: 59.7vh;
+  left: 8.5vw;
+  text-align: right;
 }
 
-.text-evolution{
-  top: 378px;
-  left: 879px;
+.text-evols{
+  top: 59.7vh;
+  left: 66.64vw;
+  text-align: left;
 }
 
-.text-versions{
-  top: 253px;
-  left: 879px;
+.text-ver{
+  top: 40.45vh;
+  left: 66.64vw;
+  text-align: left;
+}
+
+.text-specs2{
+  position: absolute;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: bold;
+
+  width: 8vw;
+  text-align: center;
+  color: black;
+}
+
+.text-style{
+  left: 43.75vw;
+  top: 75vh;
+  color: white
+}
+
+.text-weak{
+  left: 53vw;
+  top: 11.8vh;
+}
+
+.text-type{
+  left: 34vw;
+  top: 11.8vh;
 }
