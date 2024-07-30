@@ -27,7 +27,7 @@
   font-family: monospace;
   font-size: 32px;  
   font-weight: 800;
-  color: #333;
+  color: inherit;
   padding: 0;
   margin: 0;
 }
@@ -114,4 +114,82 @@
 
 .versions path{
   fill: black;
+}
+
+.type-colors{
+  /*Césped - Verde*/
+  color: #2D7F11;
+  color: hsl(112, 76%, 27%);
+  
+  /*Veneno - Verde fosforescente*/
+  color: #D2F513;
+  color: hsl(66, 89%, 52%);
+  
+  /*Fuego - Naranja*/
+  color: #F76F1C;
+  color: hsl(22, 91%, 55%);
+
+  /*Volador - Azul*/
+  color: #134690;
+  color: hsl(215, 76%, 31%);
+
+  /*Agua - Celeste oscuro*/
+  color: #569EFF;
+  color: hsl(210, 100%, 67%);
+
+  /*Insecto - Aguamarina*/
+  color: #14C2C2;
+  color: hsl(180, 81%, 43%);
+  
+  /*Normal - gris claro*/
+  color: #ABA9AB;
+  color: hsl(240, 1%, 67%);
+
+  /*Electricidad - Amarillo*/
+  color: #F5EE13;
+  color: hsl(56, 89%, 53%);
+
+  /*Tierra - Marrón claro*/
+  color: #A7692F;
+  color: hsl(24, 56%, 43%);
+
+  /*Hada - Rosa*/
+  color: #FD4AF5;
+  color: hsl(302, 94%, 66%);
+
+  /*Lucha - Marrón oscuro*/
+  color: #5F3A18;
+  color: hsl(24, 54%, 23%);
+
+  /*Psíquico- Lila */
+  color: #E3ABF9;
+  color: hsl(276, 85%, 83%);
+  
+  /*Roca - Gris oscuro*/
+  color: #494A4B; 
+  color: hsl(210, 2%, 29%); 
+
+  /*Acero - Plateado*/
+  color: #9AA6B5;
+  color: hsl(213, 11%, 67%);
+  
+  /*Hielo - Celeste Claro*/
+  color: #B9D7FF;
+  color: hsl(210, 100%, 85%);
+
+  /*Fantasma - Blanco*/
+  color: #FFFFFF;
+  color: hsl(0, 0%, 100%);
+
+  /*Dragón - Rojo*/
+  color: #DE1521;
+  color: hsl(357, 79%, 46%);
+
+  /*Oscuro - Negro*/
+  color: #000000;
+  color: hsl(0, 0%, 0%);
+
+  /*Por defecto - Gris*/
+  color: #222222;
+  color: hsl(0, 0%, 13%);
 }

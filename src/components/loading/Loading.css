@@ -9,7 +9,8 @@
 
 .lds-spinner {
   /* change color here */
-  color: #1c4c5b
+  color: #1c4c5b;
+  margin-right: 25px;
 }
 .lds-spinner,
 .lds-spinner div,

@@ -16,7 +16,7 @@ export default function CustomPokeVersion({entrie, index, setIndexFlavor, color}
 
   useEffect(()=>{
     if(textThisVersion.current)
-      textThisVersion.current.style.backgroundColor = color+'99';
+      textThisVersion.current.style.backgroundColor = color+'7f';
   },[textThisVersion.current])
 
   useEffect(()=>{

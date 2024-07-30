@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import './Stats.css'
+import './Stats2.css'
 
 const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
 
   activeColor ? '' : colors.midcolor = undefined //para desactivar manualmente el color
   
   let divStats = useRef();
-  const [statsNames, setStatsNames] = useState(undefined)
-  const [statsBars, setStatsBars] = useState(undefined)
+  const [stats, setStats] = useState(undefined)
   const numberDivisions = 15;
   const maxStat = 255;
 
@@ -24,33 +23,16 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
     return bars;
   }
 
-  const getNames = (stat) => {
-    return(
-      <div className='name'>{
-        stat.stat.name === 'hp' ? 'HP' : stat.stat.name.split('-').map((word,index)=>{
-          return word.charAt(0).toUpperCase() + word.slice(1)
-        }).join(' ')
-      }</div>
-    )
-  }
-
   useEffect(()=>{
-    let newStatsNames = dataStats.map((stat,index)=>{
+    let newStats = dataStats.map((stat,index)=>{
       //console.log(stat.base_stat,stat.stat.name)
       return(
-        <div className='stat-name' key={index} >
+        <div className='stat' key={index} >
           <div className='name'>{
             stat.stat.name === 'hp' ? 'HP' : stat.stat.name.split('-').map((word,index)=>{
               return word.charAt(0).toUpperCase() + word.slice(1)
             }).join(' ')
           }</div>
-        </div>
-      )
-    })
-
-    let newStatsBars = dataStats.map((stat,index)=>{
-      return(
-        <div className='stat-bars' key={index} >
           <div className='bars-s'>
             { getBars(numberDivisions, stat.base_stat) }
           </div>
@@ -65,13 +47,11 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
       bar.style.marginRight = '.15vw';
     })
 
-    setStatsNames(newStatsNames)
-    setStatsBars(newStatsBars)
-
+    setStats(newStats)
   },[dataStats])
 
   useEffect(()=>{
-    if(statsNames){
+    if(stats){
       let arrBars = document.getElementsByClassName('bar-s');
 
       Array.from(arrBars).forEach(bar=>{
@@ -83,17 +63,13 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
           bar.style.background = colors.contrMidcolor;
       })
     }
-  },[statsNames])
+  },[stats])
 
   return(
     <>
      <div className='stats-content'>
-      <div className='stats-names' >
-        {statsNames}
-      </div>
-
-      <div className='stats-bars' >
-        {statsBars}
+      <div className='stats' ref={divStats} >
+        {stats}
       </div>
      </div>
     </>

@@ -20,7 +20,6 @@
 .container-versions > *{
   padding: 5px;
   margin: 0;
-  
 }
 
 .bars-v{
@@ -35,7 +34,7 @@
   top: -8vh;
 }
 
-.bar-v{
+.bar-v-an, .bar-v{
   position: relative;
   top: 0;
   background-color: #808080;
@@ -44,6 +43,30 @@
   margin: 0;
   height: 0;
   padding: 0;
+}
+
+.bar-v-an{
+  transition: all 0.5s;
+}
+
+.container-versions:hover .bar-v{
+  display: block;
+  transition: all 0.5s;
+  animation: fade-in 0.25s linear forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bar-v.fade-out {
+  animation: fade-out 0.25s linear forwards;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .bar-v.active{

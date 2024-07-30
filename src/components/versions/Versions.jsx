@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import Loading from "../loading/Loading";
 import './Versions.css'
 
-const Versions = ({ pokeVersions })=>{
+const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })=>{
+  
+  hideBarSide === undefined ? hideBarSide = false : hideBarSide = true
 
+  activeColor ? '' : colors.midcolor = undefined
+  
   const verPerCol = 7; //Versions per columns
   const [colVersions, setColVersions] = useState(0)
   const [limit, setLimit] = useState(0)
@@ -28,32 +32,49 @@ const Versions = ({ pokeVersions })=>{
   useEffect(() => {
     if (barRefs.current.length > 0) {
       barRefs.current.forEach((bar, index) => {
+
         if (bar) {
           if (index === colVersions) {
             bar.classList.add('active');
+            bar.style.background = colors.contrMidcolor;
+
           } else if (bar.classList.contains('active')) {
             bar.classList.remove('active');
+            let newColor = colors.midcolor.split(',')
+            newColor.pop()
+            bar.style.background = newColor + `,${idOpacity})`;
           }
-        } else {
-          console.log('No hay clases');
-          console.log(bar.className);
         }
       });
     }
   }, [colVersions]);
 
   useEffect(()=>{
-    if(barRefs.current && limit > 0){
-      barRefs.current.forEach(bar=>{
-        let space = (divVersions.current.offsetHeight/((limit+1)*2))
-
-        if(bar.getAttribute('keyy')==='0')
-          bar.style.marginTop = space/4 +'px';
-
-        space += 'px';
-        bar.style.height = space;
-        bar.style.marginBottom = space;
+    if(barRefs.current){
+      barRefs.current.forEach((bar, index) => {
+        hideBarSide ? bar.style.display = 'none' : bar.style.display = 'block';
       })
+
+      if(limit > 0){
+        barRefs.current.forEach(bar=>{
+          let space = (divVersions.current.offsetHeight/((limit+1)*2))
+
+          if(bar.getAttribute('keyy')==='0')
+            bar.style.marginTop = space/4 +'px';
+  
+          space += 'px';
+          bar.style.height = space;
+          bar.style.marginBottom = space;
+          
+          if(bar.classList.contains('active'))
+            bar.style.background = colors.contrMidcolor;
+          else{
+            let newColor = colors.midcolor.split(',')
+            newColor.pop()
+            bar.style.background = newColor + `,${idOpacity})`;
+          }
+        })
+      }
     }
   },[barRefs.current])
 
@@ -64,30 +85,60 @@ const Versions = ({ pokeVersions })=>{
     for (let i = 0; i <= limit; i++) {
         newBars.push(
           <div
-            className={ i===0 ? 'bar-v active' : 'bar-v' }
+            className={ hideBarSide ? (i===0 ? 'bar-v active' : 'bar-v') : (i===0 ? 'bar-v-an active' : 'bar-v-an')}
             key={i}
             keyy={i}
             ref={(el) => (barRefs.current[i] = el)}
           />
         );
       }
-    
-  
     setBars(newBars);
   };
 
+  useEffect(()=>{
+    let newColor = colors.midcolor.split(',')
+    newColor.pop()
+    divVersions.current.style.background = newColor + `,${idOpacity})`;
+  },[divVersions])
+
   return(
-    <div className='container-versions' >
+    <div className='container-versions' 
+      onMouseEnter={ () =>
+        hideBarSide ? 
+        barRefs.current.forEach((bar, index) => {
+            bar.style.animation = '';
+            bar.style.display = 'block';
+          })
+        : ''
+      }
+      onMouseLeave={ () =>
+        hideBarSide ? 
+          barRefs.current.forEach((bar, index) => {
+            
+            bar.classList.add('fade-out');
+            // Forzar un reflujo para asegurar que la animación se ejecute inmediatamente
+            bar.offsetHeight; 
+            bar.addEventListener('animationend', (event) => {
+              if (event.animationName === 'fade-out') {
+                bar.classList.remove('fade-out');
+                bar.style.display = 'none';
+              }
+            }, { once: true });
+          })
+        : ''
+      }
+    >
       <div className='versions' ref={divVersions} onWheel={(e)=>{
         if(e.deltaY > 0){
 
           if(colVersions < limit)
               setColVersions(colVersions+1)
-                      
+          
         }else{
           if(colVersions > 0)
             setColVersions(colVersions-1)
         }
+
       }} >
         { pokeVersions ? pokeVersions.filter((entrie, index)=>index>=colVersions*verPerCol && index<(colVersions*verPerCol+verPerCol)) : <Loading /> }
       </div>

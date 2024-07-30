@@ -4,5 +4,6 @@ import usePokeId from "./hooks/UsePokeId";
 import usePokefetch from "./hooks/UsePokeFetch";
 import useFoundPokemon from "./hooks/UseFoundPokemon";
 import { getPokemonNumber, getPokemonIndex } from "./functions/GetPokemonNumber";
+import useAllPoke from "./hooks/UseAllPoke";
 
-export { useFoundPokemon, loadMorePokemons, pokeDetails, usePokeId, usePokefetch, getPokemonNumber, getPokemonIndex };
+export { useFoundPokemon, loadMorePokemons, pokeDetails, usePokeId, usePokefetch, getPokemonNumber, getPokemonIndex, useAllPoke };

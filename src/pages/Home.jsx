@@ -9,10 +9,11 @@ import CustomInput from '@migueguille/components/dist/customInput/CustomInput'
 import InfiniteScroll from '@migueguille/components/dist/infinityScroll/InfinityScroll'
 import CustomDropdown from '@migueguille/components/dist/customDropdown/CustomDropdown'
 import { useNavigate } from 'react-router-dom'
-import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon } from '../services/index.js'
+import { pokeDetails, getPokemonNumber, getPokemonIndex, useFoundPokemon, useAllPoke } from '../services/index.js'
 import './Home.css'
 import TopScroll from '../components/topScroll/TopScroll.jsx'
 import pokelogo from '../assets/pokelogo.png'
+import Loading from '../components/loading/Loading.jsx'
 
 
 const Home = ({ noscroll }) => {
@@ -21,28 +22,28 @@ const Home = ({ noscroll }) => {
     else
       noscroll=true
 
+    const { pokeData, loading, error, maxTypes } = useAllPoke();
     const [inputValue, setInputValue] = useState('');
     const [pokemons, setPokemons] = useState([]);
     const [foundPokemon, setFoundPokemon] = useState(null);
     const [offset, setOffset] = useState(20);
-    const [loading, setLoading] = useState(false);
-    console.log(pokemons)
+    const [thisLoading, setThisLoading] = useState(false);
     const [content, setContent] = useState(null)
     const [allPokeGenders, setAllPokeGenders] = useState(null);
     const navigate = useNavigate();
   
     // Function to load more pokemons
     const handleLoadMorePokemons = () => {
-      loadMorePokemons(offset, setPokemons, setOffset, setLoading);
+      loadMorePokemons(offset, setPokemons, setOffset, setThisLoading);
     };
-
+    
     useEffect(()=>{
       if(!noscroll){
         document.body.className = ''
       }else{
         document.body.className = 'body-noscroll'
       }
-    })
+    },[])
   
     const onChange = (event) => {
       setInputValue(event.target.value);
@@ -50,13 +51,13 @@ const Home = ({ noscroll }) => {
   
     useEffect(() => {
       const handler = setTimeout(() => {
-        useFoundPokemon(inputValue, setLoading, setFoundPokemon, setPokemons);
+        useFoundPokemon(inputValue, setThisLoading, setFoundPokemon, setPokemons);
       }, 500);
       return () => clearTimeout(handler);
     }, [inputValue]);
 
     const handlePress = (pokemonName) => {
-        navigate(`/Pokemon/${pokemonName}`)
+        navigate(`/pokemon/${pokemonName}`)
     }
   
     useEffect(() => {
@@ -76,7 +77,9 @@ const Home = ({ noscroll }) => {
       )
     },[pokemons, foundPokemon])
   
+    //error ? console.log(error) : loading ? <Loading /> :  
     return (
+      thisLoading ? <Loading /> :
       <>
         <Header pokelogo={pokelogo}>
           <CustomInput placeholder='Search' value={inputValue} onChange={onChange} />
@@ -87,7 +90,7 @@ const Home = ({ noscroll }) => {
           <div className='content-app'>
             {content}
             <TopScroll />
-            <InfiniteScroll loading={loading} fetchMoreData={handleLoadMorePokemons} />
+            <InfiniteScroll loading={thisLoading} fetchMoreData={handleLoadMorePokemons} />
           </div>
           </div>
         </div>

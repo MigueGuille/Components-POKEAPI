@@ -3,7 +3,7 @@ import './BackgroundShapes.css'
 
 
 const BackgroundShapes=({ getNumber, id, color })=>{
-
+  
   let trnglDwnDmnd = useRef()
   let trnglUpDmnd = useRef()
   let trnglStyle = useRef()
@@ -33,59 +33,50 @@ const BackgroundShapes=({ getNumber, id, color })=>{
     return data.name;
   }
 
-  function getMidColor(color1, color2){
-
-    //Para usar transparente con #00000000
-    if(color1!=='00000000' && color2!=='00000000'){
-      let r1 = color1.slice(0,2);
-      let g1 = color1.slice(2,4);
-      let b1 = color1.slice(4,6);
-  
-      let r2 = color2.slice(0,2);
-      let g2 = color2.slice(2,4);
-      let b2 = color2.slice(4,6);
-  
-      let r = Math.floor((parseInt(r1, 16) + parseInt(r2, 16)) / 2).toString(16);
-      let g = Math.floor((parseInt(g1, 16) + parseInt(g2, 16)) / 2).toString(16);
-      let b = Math.floor((parseInt(b1, 16) + parseInt(b2, 16)) / 2).toString(16);
-      return r+g+b;
-    }else{
-      if(color1==='00000000' && color2!=='00000000'){
-        return color2 + '77';
-      }else if(color1!=='00000000' && color2==='00000000'){
-        return color1 + '77';
-      }else{
-        return '00000000';
-      }
-    }
-  }
-
   useEffect(()=>{
-    let midcolor = getMidColor(color.color1, color.color2);
-    
-    if(color.color1[0]!=='#')
-      color.color1 = '#'+color.color1;
-    if(color.color2[0]!=='#')
-      color.color2 = '#'+color.color2;
-    if(midcolor[0]!=='#')
-      midcolor = '#'+midcolor;
 
-    trnglUpDmnd.current.style.background = `linear-gradient(180deg, ${color.color1}, ${midcolor})`;
-    trnglDwnDmnd.current.style.background = `linear-gradient(0deg, ${color.color2}, ${midcolor})`;
+    trnglUpDmnd.current.style.background = `linear-gradient(180deg, ${color.color1}, ${color.midcolor})`;
+    trnglDwnDmnd.current.style.background = `linear-gradient(0deg, ${color.color2}, ${color.midcolor})`;
+    
+    let midcolor = color.midcolor.split(',')
+    midcolor.pop()
+    midcolor.push(' 0.8)')
+    midcolor = midcolor.join(',')
+    console.log(midcolor)
+    
     rectLeft.current.style.backgroundColor = midcolor;
     rectRight.current.style.backgroundColor = midcolor;
-    trnglStyle.current.style.borderBottomColor = color.color2;
-    trnglTW.current.style.borderTopColor = color.color1;
+    trnglStyle.current.style.background = `linear-gradient(0deg, ${color.color2}, ${color.midcolor})`;
+    trnglTW.current.style.background = `linear-gradient(180deg, ${color.color1}, ${color.midcolor})`;
     
+    let arrSpecs2 = document.getElementsByClassName('text-specs2');
+    Array.from(arrSpecs2).forEach(spec=>{
+      spec.style.color = color.textSpecs2;
+    })
+
+    let arrSpecs3 = document.getElementsByClassName('text-specs3');
+    Array.from(arrSpecs3).forEach(spec=>{
+      spec.style.color = color.textSpecs3;
+    })
+
+    let textArrws = document.getElementsByClassName('text-arrws');
+    Array.from(textArrws).forEach(text=>{
+      text.style.color = color.textArrws;
+    })
+
+    let arrleft = document.getElementsByClassName('arrow-left')[0]
+    if(arrleft)
+      arrleft.getElementsByTagName('path')[0].style.fill = color.textArrws;
+
+    let arrright = document.getElementsByClassName('arrow-right')[0]
+    if(arrright)
+      arrright.getElementsByTagName('path')[0].style.fill = color.textArrws;
+
   },[trnglUpDmnd.current, trnglDwnDmnd.current])
 
-  const nextPage = () =>{
-    id < 1025 ? location.replace(`/pokemon/${id+1}`): ''
-  }
+  const nextPage = () =>{ id < 1025 ? location.replace(`/pokemon/${id+1}`): '' }
 
-  const prevPage = () =>{
-    id > 1 ? location.replace(`/pokemon/${id-1}`) : ''
-  }
+  const prevPage = () =>{ id > 1 ? location.replace(`/pokemon/${id-1}`) : '' }
   
   return(
     
@@ -126,12 +117,12 @@ const BackgroundShapes=({ getNumber, id, color })=>{
 
       <div className='text-specs1 text-char'>CHARACTERISTICS</div>
       <div className='text-specs1 text-evols'>EVOLUTIONS</div>
-      <div className='text-specs1 text-status'>STATUS</div>
+      <div className='text-specs1 text-stats'>STATS</div>
       <div className='text-specs1 text-ver'>VERSIONS</div>
       
-      <div className='text-specs2 text-style'>STYLE</div>
       <div className='text-specs2 text-type'>TYPE</div>
       <div className='text-specs2 text-weak'>WEAKNESS</div>
+      <div className='text-specs3 text-style'>STYLE</div>
       
     </>
   )
