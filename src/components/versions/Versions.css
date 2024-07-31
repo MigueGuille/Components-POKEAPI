@@ -2,18 +2,19 @@
     display: none;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 900px) {
   .container-versions{
     position: absolute;
     top: 12.8vh;
     right: 5vw;
     display: block;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-around;
     padding: 0;
     margin: 0;
-    width: min-content;
-    height: min-content;
+    width: max-content;
+    height: max-content;
+
   }
 }
 
@@ -30,7 +31,7 @@
   padding: 0;
   width: min-content;
   left: -2.5vw;
-  left: 24.5vw;
+  left: 25vw;
   top: -8vh;
 }
 
@@ -46,12 +47,12 @@
 }
 
 .bar-v-an{
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 
 .container-versions:hover .bar-v{
   display: block;
-  transition: all 0.5s;
+  transition: all 0.4s;
   animation: fade-in 0.25s linear forwards;
 }
 

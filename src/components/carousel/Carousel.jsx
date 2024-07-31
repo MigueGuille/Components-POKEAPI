@@ -1,9 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Carousel.css';
 
 const Carousel = ({ pokemonId, colors }) => {
   const [sprites, setSprites] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(2);
+  let divCarousel = useRef();
+
+  const msRefresh = 100;
+  const [widthClient, setWidthClient] = useState(window.innerWidth)
+  
+  useEffect(()=>{
+    isWidthChanged()
+  },[])
+
+  function isWidthChanged(){
+    setInterval(() => {
+      if(window.innerWidth !== widthClient){
+        setWidthClient(window.innerWidth)
+        if(divCarousel.current){
+          //divCarousel.current.style.display = 'flex';
+          
+          window.innerWidth <= 1360 && window.innerWidth > 1000  ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/2.1 + 'px' :
+          window.innerWidth <= 1000 && window.innerWidth >  800 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/2.3 + 'px' :
+          window.innerWidth <=  800 && window.innerWidth >  750 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/2.5 + 'px' :
+          window.innerWidth <=  750 && window.innerWidth >  700 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/2.7 + 'px' :
+          window.innerWidth <=  700 && window.innerWidth >  650 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/3 + 'px' :
+          window.innerWidth <=  650 && window.innerWidth >  600 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/3.25 + 'px' :
+          window.innerWidth <=  600 && window.innerWidth >  550 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/4 + 'px' :
+          window.innerWidth <=  550 && window.innerWidth >  500 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/4.5 + 'px' :
+          window.innerWidth <=  500 && window.innerWidth >  475 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/6 + 'px' :
+          window.innerWidth <=  475 ? divCarousel.current.style.left = (window.innerWidth - divCarousel.current.offsetWidth)/8 + 'px' : '';
+          window.innerWidth <=  450 ? divCarousel.current.style.display = 'none' : divCarousel.current.style.display = 'flex';
+        }
+      }
+    }, msRefresh);
+  }
 
   useEffect(() => {
     const fetchSprites = async () => {
@@ -40,7 +71,7 @@ const Carousel = ({ pokemonId, colors }) => {
   };
 
   return (
-    <div className="carousel" 
+    <div className="carousel" ref={divCarousel}
       onMouseEnter={()=>{
         const arrIcons = document.getElementsByClassName('arr-icons');
         Array.from(arrIcons).forEach(icon => {

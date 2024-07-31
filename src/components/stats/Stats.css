@@ -1,7 +1,7 @@
 .stats-content{
   position: absolute;
-  top: 62vh;
-  left: 1vw;
+  top: 65vh;
+  left: 0;
   background: transparent;
   display: flex;
   flex-direction: row;
@@ -17,7 +17,7 @@
 }
 
 .stat-name{
-  font-size: max(1.35vw, 14px);
+  font-size: 18px;
   margin-top: .1vh;
 }
 
@@ -28,6 +28,7 @@
   justify-content: space-between;
   width: 100%;
   height: inherit;
+  margin-left: min(.5vw, 2px);
 }
 
 @keyframes fade-in {

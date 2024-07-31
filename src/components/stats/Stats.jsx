@@ -1,15 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 import './Stats.css'
 
-const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
+const Stats = ({ dataStats, colors, activeColor, idOpacity, quantBarStats })=>{
 
-  activeColor ? '' : colors.midcolor = undefined //para desactivar manualmente el color
+  if(!activeColor){
+    colors.bgComp = 'hsla(0, 0%, 60%, 1)'
+    colors.hlComp = 'hsla(0, 0%, 100%, 1)'
+  }
   
   let divStats = useRef();
   const [statsNames, setStatsNames] = useState(undefined)
   const [statsBars, setStatsBars] = useState(undefined)
-  const numberDivisions = 15;
   const maxStat = 255;
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  const msRefresh = 100;
+  const [widthClient, setWidthClient] = useState(window.innerWidth)
+  
+  useEffect(()=>{
+    isWidthChanged()
+  },[])
+
+  function isWidthChanged(){
+    setInterval(() => {
+      if(window.innerWidth !== widthClient){
+        setWidthClient(window.innerWidth)
+      }
+    }, msRefresh);
+  }
+
+  useEffect(()=>{
+    getNames(dataStats, window.innerWidth)
+  },[widthClient])
 
   const getBars = (numberDivisions, base_stat) => {
     let bars = []
@@ -24,35 +46,52 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
     return bars;
   }
 
-  const getNames = (stat) => {
+  const stat2name = (stat) => {
     return(
-      <div className='name'>{
-        stat.stat.name === 'hp' ? 'HP' : stat.stat.name.split('-').map((word,index)=>{
-          return word.charAt(0).toUpperCase() + word.slice(1)
-        }).join(' ')
-      }</div>
+      stat.stat.name === 'hp' ? 'HP' : stat.stat.name.split('-').map((word,index)=>{
+        return word.charAt(0).toUpperCase() + word.slice(1)
+      }).join(' ')
     )
   }
 
+  const getNames = (dataStats, width) => {
+    if(width && width > 900){
+      setStatsNames(
+        dataStats.map((stat,index)=>{
+          return(
+            <div className='stat-name' key={index} >
+              <div className='name'>{
+                stat2name(stat)
+              }</div>
+            </div>
+          )
+        })
+      )}else{
+      setStatsNames(
+        dataStats.map((stat, index)=>{
+          return(
+            <div className='stat-name' key={index} >
+              <div className='name'>{
+                abbrNames(index)
+              }</div>
+            </div>
+          )}
+        )
+      )}
+  }
+
+  const abbrNames = (index) =>{
+    let name = ['HP','ATK','DEF','SP ATK','SP DEF','SPD']
+    return name[index]
+  }
+
   useEffect(()=>{
-    let newStatsNames = dataStats.map((stat,index)=>{
-      //console.log(stat.base_stat,stat.stat.name)
-      return(
-        <div className='stat-name' key={index} >
-          <div className='name'>{
-            stat.stat.name === 'hp' ? 'HP' : stat.stat.name.split('-').map((word,index)=>{
-              return word.charAt(0).toUpperCase() + word.slice(1)
-            }).join(' ')
-          }</div>
-        </div>
-      )
-    })
 
     let newStatsBars = dataStats.map((stat,index)=>{
       return(
         <div className='stat-bars' key={index} >
           <div className='bars-s'>
-            { getBars(numberDivisions, stat.base_stat) }
+            { getBars(quantBarStats, stat.base_stat) }
           </div>
         </div>
       )
@@ -64,8 +103,8 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
       bar.style.width = '.45vw';
       bar.style.marginRight = '.15vw';
     })
-
-    setStatsNames(newStatsNames)
+    
+    getNames(dataStats, window.innerWidth)
     setStatsBars(newStatsBars)
 
   },[dataStats])
@@ -76,11 +115,11 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
 
       Array.from(arrBars).forEach(bar=>{
         if(!bar.classList.contains('fill')){
-          let newColor = colors.midcolor.split(',')
+          let newColor = colors.bgComp.split(',')
           newColor.pop()
           bar.style.background = newColor + `,${idOpacity})`;
         }else
-          bar.style.background = colors.contrMidcolor;
+          bar.style.background = colors.hlComp;
       })
     }
   },[statsNames])
@@ -95,6 +134,7 @@ const Stats = ({ dataStats, colors, activeColor, idOpacity })=>{
       <div className='stats-bars' >
         {statsBars}
       </div>
+
      </div>
     </>
   )

@@ -2,18 +2,39 @@ import { useEffect, useRef, useState } from "react";
 import Loading from "../loading/Loading";
 import './Versions.css'
 
-const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })=>{
-  
-  hideBarSide === undefined ? hideBarSide = false : hideBarSide = true
+const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide, maxVerPerCol })=>{
 
-  activeColor ? '' : colors.midcolor = undefined
-  
-  const verPerCol = 7; //Versions per columns
+  if(!activeColor){
+    colors.bgComp = 'hsla(0, 0%, 60%, 1)'
+    colors.hlComp = 'hsla(0, 0%, 100%, 1)'
+  }
+
+  const [verPerCol, setVerPerCol] = useState(getVerPerCol()) //Versions per columns
   const [colVersions, setColVersions] = useState(0)
   const [limit, setLimit] = useState(0)
   const [bars, setBars] = useState([])
   let divVersions = useRef();
   const barRefs = useRef([]);
+  
+  const msRefresh = 100;
+  const [widthClient, setWidthClient] = useState(window.innerWidth)
+  
+  useEffect(()=>{
+    isWidthChanged()
+  },[])
+
+  function getVerPerCol(){
+    return  Math.ceil(window.innerWidth*maxVerPerCol/window.screen.availWidth);
+  }
+
+  function isWidthChanged(){
+    setInterval(() => {
+      if(window.innerWidth !== widthClient){
+        setWidthClient(window.innerWidth)
+        setVerPerCol(getVerPerCol())
+      }
+    }, msRefresh);
+  }
 
   useEffect(()=>{
     if(pokeVersions){
@@ -22,7 +43,7 @@ const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })
       else
         setLimit(pokeVersions.length/verPerCol - 1)
     }
-  },[pokeVersions])
+  },[pokeVersions, verPerCol])
 
   useEffect(()=>{
     getBars(limit)
@@ -36,11 +57,11 @@ const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })
         if (bar) {
           if (index === colVersions) {
             bar.classList.add('active');
-            bar.style.background = colors.contrMidcolor;
+            bar.style.background = colors.hlComp;
 
           } else if (bar.classList.contains('active')) {
             bar.classList.remove('active');
-            let newColor = colors.midcolor.split(',')
+            let newColor = colors.bgComp.split(',')
             newColor.pop()
             bar.style.background = newColor + `,${idOpacity})`;
           }
@@ -52,26 +73,29 @@ const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })
   useEffect(()=>{
     if(barRefs.current){
       barRefs.current.forEach((bar, index) => {
-        hideBarSide ? bar.style.display = 'none' : bar.style.display = 'block';
+        if(bar)
+          hideBarSide ? bar.style.display = 'none' : bar.style.display = 'block';
       })
 
       if(limit > 0){
         barRefs.current.forEach(bar=>{
-          let space = (divVersions.current.offsetHeight/((limit+1)*2))
-
-          if(bar.getAttribute('keyy')==='0')
-            bar.style.marginTop = space/4 +'px';
+          if(bar){
+            let space = (divVersions.current.offsetHeight/((limit+1)*2))
   
-          space += 'px';
-          bar.style.height = space;
-          bar.style.marginBottom = space;
-          
-          if(bar.classList.contains('active'))
-            bar.style.background = colors.contrMidcolor;
-          else{
-            let newColor = colors.midcolor.split(',')
-            newColor.pop()
-            bar.style.background = newColor + `,${idOpacity})`;
+            if(bar.getAttribute('keyy')==='0')
+              bar.style.marginTop = space/4 +'px';
+    
+            space += 'px';
+            bar.style.height = space;
+            bar.style.marginBottom = space;
+            
+            if(bar.classList.contains('active'))
+              bar.style.background = colors.hlComp;
+            else{
+              let newColor = colors.bgComp.split(',')
+              newColor.pop()
+              bar.style.background = newColor + `,${idOpacity})`;
+            }
           }
         })
       }
@@ -96,7 +120,7 @@ const Versions = ({ pokeVersions, colors, activeColor, idOpacity, hideBarSide })
   };
 
   useEffect(()=>{
-    let newColor = colors.midcolor.split(',')
+    let newColor = colors.bgComp.split(',')
     newColor.pop()
     divVersions.current.style.background = newColor + `,${idOpacity})`;
   },[divVersions])

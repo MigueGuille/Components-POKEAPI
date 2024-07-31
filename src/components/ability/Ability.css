@@ -3,13 +3,25 @@
   width: max-content;
 }
 
-.ab:hover{
-  text-decoration: underline;
-}
-
 .container-ab{
   display: flex;
+  flex-direction: column;
+}
+
+.cont-ab, .cont-abh{
+  display: flex;
   flex-direction: row;
+  width: max-content;
+}
+
+@media screen and (max-width: 800px) {
+  .cont-ab{
+    flex-direction: column;
+  }
+  .cont-ab, .cont-abh{
+    line-height: 1.5;
+  }
+
 }
 
 .hidden{

@@ -1,15 +1,33 @@
 .poke-data{
   position: absolute;
-  top: 92px;
-  left: 52px;
+  top: 75px;
+  left: 4vw;
   width: 300px;
   display: flex;
-  flex-direction: column;
-  font-size: 18px;
+  flex-direction: row;
+  font-size: 20px;
+  line-height: 1.8;
 }
 
-.text{
-  font-weight: 600;
+.titles{
+  display: none;
+}
+
+@media screen and (min-width: 1000px) {
+  .titles{
+    display: block;
+    font-weight: 600;
+    text-align: right;
+    margin-right: 1vw;
+  }
+}
+
+.containers-char{
+  text-align: left;
+}
+
+.cont{
+  width: max-content;
 }
 
 .char{

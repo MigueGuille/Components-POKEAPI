@@ -3,17 +3,31 @@ import './Tooltip.css'
 
 const Tooltip = (domData, entrie, color, parent)=>{
 
-  let textThisVersion = useRef();
+  let spanTooltip = useRef();
   const [position, setPosition] = useState({ x:0, y:0 });
+  const [name, setName] = useState('asd')
 
   useEffect(()=>{
-    if(textThisVersion.current)
-      textThisVersion.current.style.backgroundColor = color+'99';
-  },[textThisVersion.current])
+    console.log(domData, entrie, color)
+  },[])
 
   useEffect(()=>{
-    if(textThisVersion.current){
-      let {width, height} = textThisVersion.current.getBoundingClientRect();
+    if(entrie){
+      console.log('name',entrie)
+      if(entrie.version){
+        setName(entrie.version.name)
+      }
+    }
+  },[entrie])
+
+  useEffect(()=>{
+    if(spanTooltip.current)
+      spanTooltip.current.style.backgroundColor = color+'7f';
+  },[spanTooltip.current])
+
+  useEffect(()=>{
+    if(spanTooltip.current){
+      let {width, height} = spanTooltip.current.getBoundingClientRect();
       
       //console.log(domData)
       //console.log(domData.x/ domData.width )
@@ -26,7 +40,7 @@ const Tooltip = (domData, entrie, color, parent)=>{
   },[domData])
 
   return(
-    <span style={{ left: position.x, top: position.y }} ref={textThisVersion} className='tooltip'> {entrie.version.name} </span>
+    name ? <span style={{ left: position.x, top: position.y }} ref={spanTooltip} className='tooltip'> {name} </span> : ''
   )
 }
 

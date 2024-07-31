@@ -42,7 +42,6 @@ const BackgroundShapes=({ getNumber, id, color })=>{
     midcolor.pop()
     midcolor.push(' 0.8)')
     midcolor = midcolor.join(',')
-    console.log(midcolor)
     
     rectLeft.current.style.backgroundColor = midcolor;
     rectRight.current.style.backgroundColor = midcolor;
@@ -79,7 +78,6 @@ const BackgroundShapes=({ getNumber, id, color })=>{
   const prevPage = () =>{ id > 1 ? location.replace(`/pokemon/${id-1}`) : '' }
   
   return(
-    
     <>
       <div className='rectLeft' onClick={prevPage} ref={rectLeft}>
       {id > 1 ? 
